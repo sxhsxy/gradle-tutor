@@ -12,9 +12,9 @@ public class Department {
     @GeneratedValue(generator = "dep_seq_generator")
     @SequenceGenerator(name = "dep_seq_generator",sequenceName = "department_id_seq")
     private int id;
-    private int name;
+    private String name;
 
-    public Department(int name) {
+    public Department(String name) {
         this.name = name;
     }
 
@@ -29,23 +29,23 @@ public class Department {
         this.id = id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Department)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Department that = (Department) o;
 
         if (id != that.id) return false;
-        if (name != that.name) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
@@ -53,7 +53,7 @@ public class Department {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + name;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 
