@@ -18,7 +18,7 @@
 </head>
 <body>
 <h1>List of users</h1>
-<a href='user/new'>Add new user</a>
+<a href='${pageContext.request.contextPath}/user/new'>Add new user</a>
 <table cellspacing='1' border="1" class='main-table'>
     <tr>
         <th>Name</th>
@@ -31,10 +31,10 @@
             <td>${user.name}</td>
             <td>${user.department}</td>
             <td>
-                <a href='/user/view?id=${user.id}'>View</a>
+                <a href='${pageContext.request.contextPath}/user/view?id=${user.id}'>View</a>
             </td>
             <td>
-                <form action='user/delete?id=${user.id}' method="get" cssClass='delete'>
+                <form action='${pageContext.request.contextPath}/user/delete?id=${user.id}' method="get" cssClass='delete'>
                     <input type='submit' class='delete-button' value='delete' />
                 </form>
             </td>

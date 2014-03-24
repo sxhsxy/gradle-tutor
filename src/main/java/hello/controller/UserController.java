@@ -19,6 +19,18 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
+    @ModelAttribute
+    public User getUser(@RequestParam(required = false) Integer id) {
+        if(id == null) {
+            System.out.println(">>>>>>>> id = null");
+            User user = new User();
+            System.out.println(">>>>>>>>" + user);
+            return user;
+        }
+        else
+            return userDao.find(id);
+    }
+
     @RequestMapping(value = {"list", ""})
     public String loadHomePage(Model model) {
         List<User> users = userDao.list();
@@ -26,26 +38,17 @@ public class UserController {
         return "user/list";
     }
     @RequestMapping(value = "view", method = RequestMethod.GET)
-    public String getUser(@RequestParam Integer id, Model model) {
-        User user = userDao.find(id);
-        model.addAttribute("user", user);
+    public String viewUser() {
+        //model.addAttribute("user", user);
         return "user/view";
     }
-    @RequestMapping(value = "edit")
-    public String editUser(@RequestParam Integer id, Model model) {
-        User user = userDao.find(id);
-        model.addAttribute("user", user);
+    @RequestMapping(value = {"edit", "new"})
+    public String editUser() {
         return "user/edit";
     }
-    @RequestMapping(value = "new")
-    public String editUser(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "user/new";
-    }
     @RequestMapping(value = "update")
-    public String updateUser(User user, Model model) {
-        System.out.println(user);
+    public String updateUser(User user) {
+        System.out.println(">>>>>>>>" + user);
         //userDao.update(user);
         return "user/success";
     }

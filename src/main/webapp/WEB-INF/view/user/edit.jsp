@@ -18,7 +18,8 @@
 <h1>User Details</h1>
 <h2>${user.name}</h2>
 <div id='list'>
-    <form id='user' method='post' action="user/update">
+    <form id='user' method='post' action="${pageContext.request.contextPath}/user/update">
+        <input type="hidden" name="id" value="${user.id}" />
         <table>
             <tr><td>Login Name:</td>
                 <td><input name='loginName' id='loginName' value='${user.loginName}'/></td>
@@ -26,9 +27,9 @@
             <tr><td>Name:</td>
                 <td><input name='name' id='name' value='${user.name}'/></td>
             </tr>
-            <tr><td>Department:</td>
+           <%-- <tr><td>Department:</td>
                 <td><input name='department' id='department' value='${user.department}'/></td>
-            </tr>
+            </tr>--%>
 
         </table>
         <input type='submit' value="Update" id='update'/>

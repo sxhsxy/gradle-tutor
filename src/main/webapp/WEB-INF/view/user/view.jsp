@@ -32,7 +32,7 @@
 
         </table>
 
-        <a href="edit?id=${user.id}">Edit</a>
+        <a href="${pageContext.request.contextPath}/user/edit?id=${user.id}">Edit</a>
     </form>
 </div>
 </body>
