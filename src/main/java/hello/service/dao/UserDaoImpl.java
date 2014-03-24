@@ -1,7 +1,11 @@
 package hello.service.dao;
 
+import hello.domain.User;
+import org.springframework.stereotype.Repository;
+
 /**
  * Created by xiaohu on 14-3-8.
  */
-public class UserDaoImpl {
+@Repository("UserDao")
+public class UserDaoImpl extends JpaDao<User, Integer> implements UserDao{
 }

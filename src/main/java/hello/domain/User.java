@@ -13,6 +13,7 @@ public class User {
     @GeneratedValue(generator = "user_seq_generator")
     @SequenceGenerator(name = "user_seq_generator", sequenceName = "sys_user_id_seq")
     private int id;
+    @Column(name = "login_name")
     private String loginName;
     private String password;
     private String name;

@@ -1,6 +1,9 @@
 package hello.integration;
 
 import hello.domain.Department;
+import hello.service.dao.DepartmentDapImpl;
+import hello.service.dao.UserDao;
+import hello.service.dao.UserDaoImpl;
 import org.hibernate.jpa.criteria.CriteriaBuilderImpl;
 import org.junit.Test;
 import org.junit.Assert;
@@ -21,23 +24,25 @@ import java.util.List;
  */
 @ContextConfiguration("/applicationContext.xml")
 public class JpaConfigurationTest extends AbstractJUnit4SpringContextTests {
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-    @PersistenceContext
+    @Autowired UserDao userDao;
+
+    /*@Autowired private EntityManagerFactory entityManagerFactory;
+       @PersistenceContext
     EntityManager em;
 
     @Test
     public void testJpaConfiguration() {
         Assert.assertNotNull(entityManagerFactory);
-    }
+    }*/
     @Test
     public void testJpaDao() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
+        /* CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Department> cq = cb.createQuery(Department.class);
         Root<Department> dept = cq.from(Department.class);
         cq.select(dept);
         List<Department> list = em.createQuery(cq).getResultList();
-        System.out.println(list);
-        em.close();
+        System.out.println(list);*/
+        System.out.println(userDao.list());
+        //System.out.println(new DepartmentDapImpl().list());
     }
 }
