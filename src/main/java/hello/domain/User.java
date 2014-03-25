@@ -12,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue(generator = "user_seq_generator")
     @SequenceGenerator(name = "user_seq_generator", sequenceName = "sys_user_id_seq")
-    private int id;
+    private Integer id;
     @Column(name = "login_name")
     private String loginName;
     private String password;
@@ -31,11 +31,11 @@ public class User {
         this.department = department;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

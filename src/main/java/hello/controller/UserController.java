@@ -22,9 +22,7 @@ public class UserController {
     @ModelAttribute
     public User getUser(@RequestParam(required = false) Integer id) {
         if(id == null) {
-            System.out.println(">>>>>>>> id = null");
             User user = new User();
-            System.out.println(">>>>>>>>" + user);
             return user;
         }
         else
