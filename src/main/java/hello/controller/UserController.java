@@ -47,7 +47,9 @@ public class UserController {
     @RequestMapping(value = "update")
     public String updateUser(User user) {
         System.out.println(">>>>>>>>" + user);
-        //userDao.update(user);
+        userDao.update(user);
+        System.out.println(">>>>>>>> Id = " + user.getId());
+
         return "user/success";
     }
 }

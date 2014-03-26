@@ -27,6 +27,9 @@
             <tr><td>Name:</td>
                 <td><sf:input path='name' /></td>
             </tr>
+            <tr><td>Name:</td>
+                <td><sf:password path='password' /></td>
+            </tr>
            <%-- <tr><td>Department:</td>
                 <td><input name='department' id='department' value='${user.department}'/></td>
             </tr>--%>

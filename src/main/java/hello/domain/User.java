@@ -23,7 +23,12 @@ public class User {
 
     public User() {
     }
+    public User(String login_name, String password, String name) {
+        this.loginName = login_name;
+        this.password = password;
+        this.name = name;
 
+    }
     public User(String login_name, String password, String name, Department department) {
         this.loginName = login_name;
         this.password = password;
