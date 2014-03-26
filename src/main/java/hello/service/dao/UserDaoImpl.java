@@ -3,6 +3,8 @@ package hello.service.dao;
 import hello.domain.User;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by xiaohu on 14-3-8.
  */

@@ -27,7 +27,7 @@
             <tr><td>Name:</td>
                 <td><sf:input path='name' /></td>
             </tr>
-            <tr><td>Name:</td>
+            <tr><td>Password:</td>
                 <td><sf:password path='password' /></td>
             </tr>
            <%-- <tr><td>Department:</td>

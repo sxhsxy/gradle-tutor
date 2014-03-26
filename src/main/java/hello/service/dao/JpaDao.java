@@ -32,6 +32,7 @@ abstract class JpaDao<E, K extends Serializable> implements GenericDao<E, K> {
 
 
     public void remove(E entity) {
+        entity = entityManager.merge(entity);
         entityManager.remove(entity);
     }
 

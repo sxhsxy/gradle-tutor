@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration("/applicationContext.xml")
 public class JpaConfigurationTest extends AbstractJUnit4SpringContextTests {
     @Autowired UserDao userDao;
-    @PersistenceContext EntityManager em;
+    //@PersistenceContext EntityManager em;
 
     /*@Autowired private EntityManagerFactory entityManagerFactory;
        @PersistenceContext
@@ -46,6 +46,7 @@ public class JpaConfigurationTest extends AbstractJUnit4SpringContextTests {
     public void testJpaConfiguration() {
         Assert.assertNotNull(entityManagerFactory);
     }*/
+    @Before
     public void deleteAllEntities() {
         Connection con = null;
         PreparedStatement pst = null;
@@ -125,6 +126,7 @@ public class JpaConfigurationTest extends AbstractJUnit4SpringContextTests {
         User found = userDao.find(user.getId());
         assertEquals(user.getName(), found.getName());
         assertEquals(user.getLoginName(), found.getLoginName());
+        userDao.update(new User("xin", "mima", "xin"));
     }
 
     @Test
@@ -158,13 +160,14 @@ public class JpaConfigurationTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testRemove() {
-        User user = new User('test-User', 'hackzorz');
+        User user = new User("remove", "remove用户", "xxxxxx");
         userDao.add(user);
-
+        System.out.println("============ " + user.getId());
         // successfully added
         assertEquals(user, userDao.find(user.getId()));
 
         // try to remove
         userDao.remove(user);
         assertNull(userDao.find(user.getId()));
+    }
 }
