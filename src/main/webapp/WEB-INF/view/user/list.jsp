@@ -34,9 +34,7 @@
                 <a href='${pageContext.request.contextPath}/user/view?id=${user.id}'>View</a>
             </td>
             <td>
-                <form action='${pageContext.request.contextPath}/user/delete?id=${user.id}' method="get" cssClass='delete'>
-                    <input type='submit' class='delete-button' value='delete' />
-                </form>
+                <a href='${pageContext.request.contextPath}/user/delete?id=${user.id}'>Delete</a>
             </td>
         </tr>
     </c:forEach>

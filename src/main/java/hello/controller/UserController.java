@@ -47,17 +47,13 @@ public class UserController {
     }
     @RequestMapping(value = "update")
     public String updateUser(User user) {
-        System.out.println(">>>>>>>> " + user);
         userDao.update(user);
-        System.out.println(">>>>>>>> Id = " + user.getId());
-        userDao.update(new User("xin", "mima", "xin"));
-        return "user/success";
+        return "redirect:list";
     }
-    @RequestMapping(value = "test")
-    public String testCase() {
-        userDao.update(new User("UPDATE", "mima", "xin"));
-        userDao.add(new User("ADD", "mima", "xin"));
-        return "user/success";
+    @RequestMapping(value = "delete")
+    public String deleteUser(User user) {
+        userDao.remove(user);
+        return "redirect:list";
     }
 }
 

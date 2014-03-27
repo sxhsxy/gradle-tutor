@@ -35,7 +35,7 @@
             </tr>--%>
 
         </table>
-        <input type='submit' value="Update"/>
+        <input type='submit' value="Save"/>
     </sf:form>
 </div>
 </body>

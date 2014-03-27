@@ -12,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue(generator = "user_seq_generator")
     @SequenceGenerator(name = "user_seq_generator", sequenceName = "sys_user_id_seq")
-    private Integer id;
+    private Integer id;     //在Persistence Entity中最好使用int，char等原始类型的包装类型，避免在spring mvc中由null值的String向这些原始类型转换失败而造成表单返回对象为null。
     @Column(name = "login_name")
     private String loginName;
     private String password;
