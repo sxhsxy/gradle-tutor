@@ -15,6 +15,8 @@
 <head>
     <title>Users</title>
     <link rel='stylesheet' href='' type='text/css'>
+    <script src="http://cdn.bootcss.com/jquery/2.0.3/jquery.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.js"></script>
 </head>
 <body>
 <h1>List of users</h1>
