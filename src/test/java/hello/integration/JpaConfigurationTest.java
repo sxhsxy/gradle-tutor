@@ -1,24 +1,14 @@
 package hello.integration;
 
-import hello.domain.Department;
 import hello.domain.User;
-import hello.service.dao.DepartmentDapImpl;
-import hello.service.dao.UserDao;
-import hello.service.dao.UserDaoImpl;
-import org.hibernate.jpa.criteria.CriteriaBuilderImpl;
+import hello.dao.UserDao;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -33,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Xiaohu on 14-1-28.
  */
+@Ignore
 @ContextConfiguration("/applicationContext.xml")
 public class JpaConfigurationTest extends AbstractJUnit4SpringContextTests {
     @Autowired UserDao userDao;

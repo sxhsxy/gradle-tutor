@@ -20,6 +20,7 @@ ext {
 }
 dependencies {
     compile(
+            'org.springframework.data:spring-data-jpa:1.5.1.RELEASE',
             "org.springframework:spring-context:${springVersion}",
             "org.springframework:spring-webmvc:${springVersion}",
             "org.springframework:spring-orm:${springVersion}",

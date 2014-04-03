@@ -1,14 +1,12 @@
 package hello.controller;
 
 import hello.domain.User;
-import hello.service.dao.UserDao;
-import hello.service.dao.UserDaoImpl;
+import hello.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
