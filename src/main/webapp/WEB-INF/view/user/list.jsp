@@ -15,16 +15,23 @@
 <head>
     <title>Users</title>
     <link rel='stylesheet' href='' type='text/css'>
-    <link href="http://cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.css" rel="stylesheet">
-    <script src="http://cdn.bootcss.com/jquery/2.0.3/jquery.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.js"></script>
+    <link href="${pageContext.request.contextPath}/include/bootstrap.min.css" rel="stylesheet">
+
+    <script src="${pageContext.request.contextPath}/include/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/include/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
+
+
 </head>
 <body>
 <div class="container">
 
-    <div class=""><h1>List of users</h1></div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="${pageContext.request.contextPath}/user" >User List</a></li>
+        <li><a href="${pageContext.request.contextPath}/user/new">Create User</a></li>
+    </ul>
     <div class="row">
-        <table class="table">
+        <table class="table table-striped table-bordered table-condensed">
             <thead>
             <tr>
                 <th>Name</th>
@@ -33,24 +40,32 @@
 
             </tr>
             </thead>
-            <c:forEach items='${users}' var='user'>
+            <c:forEach items='${userPage.content}' var='user'>
                 <tr>
                     <td>${user.name}</td>
-                    <td>${user.department}</td>
+                    <td>${user.department.name}</td>
                     <td>
+                        <div class="btn-group">
                         <a class="btn btn-default" href='${pageContext.request.contextPath}/user/view?id=${user.id}'>View</a>
                         <a class="btn btn-default" href='${pageContext.request.contextPath}/user/edit?id=${user.id}'>Edit</a>
                         <a class="btn btn-default" href='${pageContext.request.contextPath}/user/delete?id=${user.id}'>Delete</a>
+                    </div>
                     </td>
                 </tr>
             </c:forEach>
         </table>
     </div>
-    <div class="row">
-        <div class="col-md-2" >
-            <a class="btn btn-default" href='${pageContext.request.contextPath}/user/new'>Add a new user</a>
-        </div>
+    <div class="col-sm-offset-7 col-sm-5">
+        <ul id="pagination" class="pagination">
+        </ul>
+
+
     </div>
+
+
 </div>
+<script>
+    $(document).load(insertPagination("pageNoDisplay", 3, ${userPage.size}, ${userPage.number}, ${userPage.totalPages}));
+</script>
 </body>
 </html>
