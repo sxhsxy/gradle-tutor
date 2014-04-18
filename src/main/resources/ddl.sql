@@ -13,3 +13,11 @@ CREATE TABLE sys_user
     department_id INT,
     FOREIGN KEY ( department_id ) REFERENCES department ( id )
 );
+
+CREATE TABLE organization
+(
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(20) NOT NULL,
+  pid INT NOT NULL,
+  type VARCHAR(10)
+);

@@ -1,8 +1,10 @@
 package hello.service;
 
 import hello.domain.Department;
+import hello.domain.Organization;
 import hello.domain.User;
 import hello.repository.DepartmentRepository;
+import hello.repository.OrganizationRepository;
 import hello.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,8 @@ public class SystemService {
     private UserRepository userRepository;
     @Autowired
     private DepartmentRepository departmentRepository;
+    @Autowired
+    private OrganizationRepository organizationRepository;
 
     public List<User> findAllUser() {
         return userRepository.findAll();
@@ -69,5 +73,29 @@ public class SystemService {
 
     public Department saveDepartment(Department department) {
         return departmentRepository.save(department);
+    }
+
+    public List<Organization> findAllOrganization() {
+        return organizationRepository.findAll();
+    }
+
+    public Page<Organization> findOrganization(PageRequest pageRequest, Organization organization) {
+        return organizationRepository.findAll(pageRequest);
+    }
+
+    public Organization findOrganization(Integer id) {
+        return organizationRepository.findOne(id);
+    }
+
+    public void deleteOrganization(Organization organization) {
+        organizationRepository.delete(organization);
+    }
+
+    public void deleteOrganization(Integer id) {
+        organizationRepository.delete(id);
+    }
+
+    public Organization saveOrganization(Organization organization) {
+        return organizationRepository.save(organization);
     }
 }

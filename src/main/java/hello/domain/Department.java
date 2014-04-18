@@ -11,7 +11,7 @@ public class Department {
     @Id
     @GeneratedValue(generator = "dep_seq_generator")
     @SequenceGenerator(name = "dep_seq_generator",sequenceName = "department_id_seq")
-    private int id;
+    private Integer id;
     private String name;
 
     public Department(String name) {
@@ -21,11 +21,11 @@ public class Department {
     public Department() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
