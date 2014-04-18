@@ -32,7 +32,7 @@ public class OrganizationController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "list")
+    @RequestMapping(value = "list/json")
     public List<Organization> listOrganization() {
         return systemService.findAllOrganization();
     }
