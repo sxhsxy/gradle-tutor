@@ -20,6 +20,7 @@ ext {
 }
 dependencies {
     compile(
+            'org.apache.shiro:shiro-spring:1.2.3',
             'com.fasterxml.jackson.core:jackson-databind:2.3.3',
             'org.springframework.data:spring-data-jpa:1.5.1.RELEASE',
             "org.springframework:spring-context:${springVersion}",
