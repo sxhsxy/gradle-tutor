@@ -19,12 +19,14 @@
         <property name="filterChainDefinitions">
             <value>
                 /admin/** = authc
-                /user/** = authc
                 /admin/logout = logout
             </value>
         </property>
     </bean>
 
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <property name="usernameParam" value="loginName" />
+    </bean>
     <!-- 定义 Shiro 主要业务对象 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- <property name="sessionManager" ref="sessionManager" /> -->
@@ -32,8 +34,30 @@
 
     </bean>
 
-    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
-        <property name="usernameParam" value="loginName" />
+    <bean id="systemAuthorizingRealm" class="hello.security.SystemAuthorizingRealm">
+        <property name="credentialsMatcher" ref="passwordMatcher" />
+    </bean>
+
+    <bean id="passwordMatcher" class="org.apache.shiro.authc.credential.PasswordMatcher">
+        <property name="passwordService" ref="passwordService" />
+    </bean>
+
+    <bean id="passwordService" class="org.apache.shiro.authc.credential.DefaultPasswordService">
+        <property name="hashService" ref="hashService" />
+    </bean>
+
+    <bean id="hashService" class="org.apache.shiro.crypto.hash.DefaultHashService">
+        <property name="hashAlgorithmName" value="SHA-512" />
+        <property name="hashIterations" value="1" />
+        <property name="generatePublicSalt" value="true" />
+        <property name="privateSalt" ref="privateSalt" />
+        <property name="randomNumberGenerator" ref="secureRandomNumberGenerator" />
+    </bean>
+
+    <bean id="secureRandomNumberGenerator" class="org.apache.shiro.crypto.SecureRandomNumberGenerator" />
+
+    <bean id="privateSalt" class="org.apache.shiro.util.ByteSource.Util" factory-method="bytes">
+        <constructor-arg value="XXXXSalt" />
     </bean>
     <!--
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">

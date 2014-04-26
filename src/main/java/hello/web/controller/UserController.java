@@ -4,6 +4,10 @@ import hello.domain.Department;
 import hello.domain.User;
 import hello.service.SystemService;
 import hello.web.editor.DepartmentEditor;
+import org.apache.shiro.authc.credential.PasswordService;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +27,10 @@ public class UserController {
 
     @Autowired
     private SystemService systemService;
+    @Autowired
+    private PasswordService passwordService;
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @ModelAttribute
     public User getUser(@RequestParam(required = false) Integer id) {
@@ -57,7 +65,10 @@ public class UserController {
 
     @RequestMapping(value = "update")
     public String updateUser(User user) {
-        System.out.print(user);
+        logger.debug("User loginName: {}, raw password: {}", user.getLoginName(), user.getPassword());
+        String hashedPassword = passwordService.encryptPassword(user.getPassword());
+        logger.debug("User loginName: {}, hashed password: {}", user.getLoginName(), hashedPassword);
+        user.setPassword(hashedPassword);
         systemService.saveUser(user);
         return "redirect:list";
     }

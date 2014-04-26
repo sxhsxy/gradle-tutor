@@ -42,7 +42,7 @@
             <label class="col-sm-2 control-label">Password</label>
 
             <div class="col-sm-9">
-                <sf:input path="password" class="form-control"/>
+                <input type="password" name="password" value="" class="form-control"/>
             </div>
         </div>
         <div class="form-group">

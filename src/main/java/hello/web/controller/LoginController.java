@@ -1,5 +1,6 @@
 package hello.web.controller;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
+
     @RequestMapping(value = "login")
-    public String loadLoginPage() {
+    public String loginPage() {
+        return "admin/login";
+    }
+
+    @RequestMapping(value = "home")
+    public String loadHomePage() {
+        SecurityUtils.getSubject().getPrincipal();
+        return "admin/home";
+    }
+
+    @RequestMapping(value = "logout")
+    public String logoutPage() {
         return "admin/login";
     }
 }
