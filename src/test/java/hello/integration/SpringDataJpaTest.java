@@ -48,6 +48,13 @@ public class SpringDataJpaTest {
     }
 
     public void insertSomeRecords() {
+        for(int x=0; x < 100; x++) {
+            userRepository.save(new User("user"+x, "psw", "姓名"));
+        }
+
+    }
+
+    /*public void insertSomeRecordsSql() {
         Connection con = null;
         PreparedStatement pst = null;
         try {
@@ -67,7 +74,7 @@ public class SpringDataJpaTest {
 
 
 
-            /*pst.setString(1, "张三");  //也可以用setObject()
+            *//*pst.setString(1, "张三");  //也可以用setObject()
             pst.setString(2, "123");
             pst.addBatch();
 
@@ -75,7 +82,7 @@ public class SpringDataJpaTest {
             pst.setString(2, "456");
             pst.addBatch();
 
-            pst.executeBatch();*/
+            pst.executeBatch();*//*
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -95,7 +102,7 @@ public class SpringDataJpaTest {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     public void deleteAllEntities() {
         Connection con = null;

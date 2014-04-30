@@ -22,7 +22,7 @@ public class OrganizationController {
     private SystemService systemService;
 
     @ModelAttribute
-    public Organization getOrganization(@RequestParam(required = false) Integer id) {
+    public Organization getOrganization(@RequestParam(required = false) Long id) {
         if(id == null) {
             Organization organization = new Organization();
             return organization;

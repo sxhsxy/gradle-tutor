@@ -10,9 +10,15 @@ import javax.persistence.*;
 @Table(name = "sys_user")
 public class User {
     @Id
-    @GeneratedValue(generator = "user_seq_generator")
-    @SequenceGenerator(name = "user_seq_generator", sequenceName = "sys_user_id_seq")
-    private Integer id;     //在Persistence Entity中最好使用int，char等原始类型的包装类型，避免在spring mvc中由null值的String向这些原始类型转换失败而造成表单返回对象为null。
+    @GeneratedValue(strategy=GenerationType.TABLE, generator="hibernate_table_generator")
+    @TableGenerator(name = "hibernate_table_generator",
+                    table = "hibernate_sequence_table",
+                    pkColumnName = "sequence_name",
+                    valueColumnName = "next_val",
+                    pkColumnValue = "sys_user"
+    )
+    //@SequenceGenerator(name = "user_seq_generator", sequenceName = "sys_user_id_seq")
+    private Long id;     //在Persistence Entity中最好使用int，char等原始类型的包装类型，避免在spring mvc中由null值的String向这些原始类型转换失败而造成表单返回对象为null。
     @Column(name = "login_name")
     private String loginName;
     private String password;
@@ -36,11 +42,11 @@ public class User {
         this.department = department;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,10 +100,10 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + loginName.hashCode();
+        int result = id.hashCode();
+        result = 31 * result + (loginName != null ? loginName.hashCode() : 0);
         result = 31 * result + password.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + name.hashCode();
         result = 31 * result + (department != null ? department.hashCode() : 0);
         return result;
     }

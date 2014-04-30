@@ -18,7 +18,7 @@ public class DepartmentEditor extends PropertyEditorSupport {
     }
 
     public void setAsText(String text) {
-        int id = Integer.parseInt(text);
+        Long id = Long.parseLong(text);
         Department department = systemService.findDepartment(id);
         setValue(department);
     }

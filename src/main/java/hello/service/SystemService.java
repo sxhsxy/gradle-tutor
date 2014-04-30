@@ -35,7 +35,7 @@ public class SystemService {
         return userRepository.findAll(pageRequest);
     }
 
-    public User findUser(Integer id) {
+    public User findUser(Long id) {
         return userRepository.findOne(id);
     }
 
@@ -43,7 +43,7 @@ public class SystemService {
        userRepository.delete(user);
     }
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(Long id) {
         userRepository.delete(id);
     }
 
@@ -59,7 +59,7 @@ public class SystemService {
         return departmentRepository.findAll(pageRequest);
     }
 
-    public Department findDepartment(Integer id) {
+    public Department findDepartment(Long id) {
         return departmentRepository.findOne(id);
     }
 
@@ -67,7 +67,7 @@ public class SystemService {
         departmentRepository.delete(department);
     }
 
-    public void deleteDepartment(Integer id) {
+    public void deleteDepartment(Long id) {
         departmentRepository.delete(id);
     }
 
@@ -83,7 +83,7 @@ public class SystemService {
         return organizationRepository.findAll(pageRequest);
     }
 
-    public Organization findOrganization(Integer id) {
+    public Organization findOrganization(Long id) {
         return organizationRepository.findOne(id);
     }
 
@@ -91,7 +91,7 @@ public class SystemService {
         organizationRepository.delete(organization);
     }
 
-    public void deleteOrganization(Integer id) {
+    public void deleteOrganization(Long id) {
         organizationRepository.delete(id);
     }
 

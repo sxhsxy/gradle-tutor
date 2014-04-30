@@ -1,25 +1,50 @@
+DROP TABLE sys_user;
+DROP TABLE department;
+DROP TABLE organization;
+DROP TABLE hibernate_sequence_table;
+
 CREATE TABLE department
 (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id bigint PRIMARY KEY NOT NULL,
     name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE sys_user
 (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id bigint PRIMARY KEY NOT NULL,
     login_name VARCHAR(128) NOT NULL,
     password VARCHAR(256) NOT NULL,
     name VARCHAR(128) NOT NULL,
+    gender VARCHAR(16),
     department_id INT,
     FOREIGN KEY ( department_id ) REFERENCES department ( id )
 );
 
 CREATE TABLE organization
 (
-  id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(20) NOT NULL,
+  id bigint PRIMARY KEY NOT NULL,
+  name VARCHAR(128) NOT NULL,
   pid INT NOT NULL,
-  type VARCHAR(10)
+  type VARCHAR(64)
+);
+
+CREATE TABLE sys_role
+(
+  id bigint PRIMARY KEY ,
+  name VARCHAR(128)
+);
+
+CREATE TABLE sys_permission
+(
+  id bigint NOT NULL,
+  name VARCHAR(128)
+);
+
+CREATE TABLE  hibernate_sequence_table (
+  id bigserial NOT NULL,
+  sequence_name varchar(255) NOT NULL,
+  next_val bigint NOT NULL,
+  PRIMARY KEY  (id)
 );
 
 ALTER TABLE sys_user

@@ -3,28 +3,23 @@ package hello.domain;
 import javax.persistence.*;
 
 /**
- * Created by Xiaohu on 14-1-28.
+ * Created by Xiaohu on 14-4-29.
  */
-@Entity
-@Table(name = "department")
-public class Department {
+//@Entity
+//@Table(name = "sys_role")
+public class Role {
     @Id
-    @GeneratedValue(strategy=GenerationType.TABLE, generator="hibernate_table_generator")
+    @GeneratedValue(strategy= GenerationType.TABLE, generator="hibernate_table_generator")
     @TableGenerator(name = "hibernate_table_generator",
             table = "hibernate_sequence_table",
             pkColumnName = "sequence_name",
-            pkColumnValue = "department",
-            valueColumnName = "next_val"
+            valueColumnName = "next_val",
+            pkColumnValue = "sys_role"
     )
-    private Long id;
+    //@SequenceGenerator(name = "user_seq_generator", sequenceName = "sys_user_id_seq")
+    private Long id;     //在Persistence Entity中最好使用int，char等原始类型的包装类型，避免在spring mvc中由null值的String向这些原始类型转换失败而造成表单返回对象为null。
+    @Column(name = "name")
     private String name;
-
-    public Department(String name) {
-        this.name = name;
-    }
-
-    public Department() {
-    }
 
     public Long getId() {
         return id;
@@ -45,12 +40,12 @@ public class Department {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Role)) return false;
 
-        Department that = (Department) o;
+        Role role = (Role) o;
 
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (!id.equals(role.id)) return false;
+        if (!name.equals(role.name)) return false;
 
         return true;
     }
@@ -64,9 +59,9 @@ public class Department {
 
     @Override
     public String toString() {
-        return "Department{" +
+        return "Role{" +
                 "id=" + id +
-                ", name=" + name +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

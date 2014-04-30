@@ -9,27 +9,32 @@ import javax.persistence.*;
 @Table(name = "organization")
 public class Organization {
     @Id
-    @GeneratedValue(generator = "org_seq_generator")
-    @SequenceGenerator(name = "org_seq_generator",sequenceName = "organization_id_seq")
-    private Integer id;
+    @GeneratedValue(strategy=GenerationType.TABLE, generator="hibernate_table_generator")
+    @TableGenerator(name = "hibernate_table_generator",
+            table = "hibernate_sequence_table",
+            pkColumnName = "sequence_name",
+            pkColumnValue = "organization",
+            valueColumnName = "next_val"
+    )
+    private Long id;
     private String name;
-    private Integer pId;
+    private Long pId;
     private String type;
 
     public Organization() {
     }
 
-    public Organization(String name, Integer pId, String type) {
+    public Organization(String name, Long pId, String type) {
         this.name = name;
         this.pId = pId;
         this.type = type;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,11 +46,11 @@ public class Organization {
         this.name = name;
     }
 
-    public Integer getpId() {
+    public Long getpId() {
         return pId;
     }
 
-    public void setpId(Integer pId) {
+    public void setpId(Long pId) {
         this.pId = pId;
     }
 

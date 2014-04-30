@@ -21,7 +21,7 @@ public class DepartmentController {
     private SystemService systemService;
 
     @ModelAttribute
-    public Department getDepartment(@RequestParam(required = false) Integer id) {
+    public Department getDepartment(@RequestParam(required = false) Long id) {
         if(id == null) {
             Department department = new Department();
             return department;

@@ -33,7 +33,7 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @ModelAttribute
-    public User getUser(@RequestParam(required = false) Integer id) {
+    public User getUser(@RequestParam(required = false) Long id) {
         if(id == null) {
             User user = new User();
             return user;

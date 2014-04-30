@@ -16,7 +16,7 @@ public class OrganizationEditor extends PropertyEditorSupport {
     }
 
     public void setAsText(String text) {
-        int id = Integer.parseInt(text);
+        Long id = Long.parseLong(text);
         Organization organization = systemService.findOrganization(id);
         setValue(organization);
     }

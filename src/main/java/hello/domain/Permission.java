@@ -3,28 +3,20 @@ package hello.domain;
 import javax.persistence.*;
 
 /**
- * Created by Xiaohu on 14-1-28.
+ * Created by Xiaohu on 14-4-30.
  */
 @Entity
-@Table(name = "department")
-public class Department {
+@Table(name = "sys_permission")
+public class Permission {
     @Id
-    @GeneratedValue(strategy=GenerationType.TABLE, generator="hibernate_table_generator")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "hibernate_table_generator")
     @TableGenerator(name = "hibernate_table_generator",
-            table = "hibernate_sequence_table",
-            pkColumnName = "sequence_name",
-            pkColumnValue = "department",
-            valueColumnName = "next_val"
+                    pkColumnName = "sequence_name",
+                    valueColumnName = "next_val",
+                    pkColumnValue = "sys_permission"
     )
     private Long id;
     private String name;
-
-    public Department(String name) {
-        this.name = name;
-    }
-
-    public Department() {
-    }
 
     public Long getId() {
         return id;
@@ -45,12 +37,12 @@ public class Department {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Permission)) return false;
 
-        Department that = (Department) o;
+        Permission that = (Permission) o;
 
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (!id.equals(that.id)) return false;
+        if (!name.equals(that.name)) return false;
 
         return true;
     }
@@ -64,9 +56,9 @@ public class Department {
 
     @Override
     public String toString() {
-        return "Department{" +
+        return "Permission{" +
                 "id=" + id +
-                ", name=" + name +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
