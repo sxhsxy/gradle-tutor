@@ -1,6 +1,8 @@
 package hello.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Xiaohu on 14-1-28.
@@ -26,6 +28,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
+    @ManyToMany
+    @JoinTable
+    private Set<Role> roles = new HashSet<Role>();
 
     public User() {
     }
@@ -80,6 +85,14 @@ public class User {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

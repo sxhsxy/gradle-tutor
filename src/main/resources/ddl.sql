@@ -6,13 +6,13 @@ DROP TABLE hibernate_sequence_table;
 CREATE TABLE department
 (
     id bigint PRIMARY KEY NOT NULL,
-    name VARCHAR(20) NOT NULL
+    name VARCHAR(20) NOT NULL UNIQUE
 );
 
 CREATE TABLE sys_user
 (
     id bigint PRIMARY KEY NOT NULL,
-    login_name VARCHAR(128) NOT NULL,
+    login_name VARCHAR(128) NOT NULL UNIQUE ,
     password VARCHAR(256) NOT NULL,
     name VARCHAR(128) NOT NULL,
     gender VARCHAR(16),
@@ -31,13 +31,13 @@ CREATE TABLE organization
 CREATE TABLE sys_role
 (
   id bigint PRIMARY KEY ,
-  name VARCHAR(128)
+  name VARCHAR(128) UNIQUE
 );
 
 CREATE TABLE sys_permission
 (
   id bigint NOT NULL,
-  name VARCHAR(128)
+  name VARCHAR(128) UNIQUE
 );
 
 CREATE TABLE  hibernate_sequence_table (

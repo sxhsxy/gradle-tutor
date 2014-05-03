@@ -1,12 +1,14 @@
 package hello.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Xiaohu on 14-4-29.
  */
-//@Entity
-//@Table(name = "sys_role")
+@Entity
+@Table(name = "sys_role")
 public class Role {
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE, generator="hibernate_table_generator")
@@ -20,6 +22,20 @@ public class Role {
     private Long id;     //在Persistence Entity中最好使用int，char等原始类型的包装类型，避免在spring mvc中由null值的String向这些原始类型转换失败而造成表单返回对象为null。
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<User>();
+
+    @ManyToMany
+    @JoinTable
+    private Set<Permission> permissions = new HashSet<Permission>();
+
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -35,6 +51,22 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
     @Override

@@ -3,9 +3,7 @@ package hello.service;
 import hello.domain.Department;
 import hello.domain.Organization;
 import hello.domain.User;
-import hello.repository.DepartmentRepository;
-import hello.repository.OrganizationRepository;
-import hello.repository.UserRepository;
+import hello.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +24,11 @@ public class SystemService {
     private DepartmentRepository departmentRepository;
     @Autowired
     private OrganizationRepository organizationRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private PermissionRepository permissionRepository;
+
 
     public List<User> findAllUser() {
         return userRepository.findAll();

@@ -1,6 +1,8 @@
 package hello.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Xiaohu on 14-4-30.
@@ -11,12 +13,23 @@ public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "hibernate_table_generator")
     @TableGenerator(name = "hibernate_table_generator",
-                    pkColumnName = "sequence_name",
+            table = "hibernate_sequence_table",
+            pkColumnName = "sequence_name",
                     valueColumnName = "next_val",
                     pkColumnValue = "sys_permission"
     )
     private Long id;
     private String name;
+
+    @ManyToMany(mappedBy = "permissions")
+    private Set<Role> roles = new HashSet<Role>();
+
+    public Permission() {
+    }
+
+    public Permission(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -32,6 +45,14 @@ public class Permission {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
