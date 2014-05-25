@@ -4,6 +4,8 @@ DROP TABLE sys_permission;
 DROP TABLE department;
 DROP TABLE organization;
 DROP TABLE hibernate_sequence_table;
+DROP TABLE sys_role_permission;
+DROP TABLE sys_user_role;
 
 CREATE TABLE department
 (
@@ -39,7 +41,22 @@ CREATE TABLE sys_role
 CREATE TABLE sys_permission
 (
   id bigint NOT NULL,
-  name VARCHAR(128) UNIQUE
+  name VARCHAR(128) UNIQUE,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE sys_role_permission
+(
+  role_id bigint NOT NULL,
+  permission_id bigint NOT NULL,
+  PRIMARY KEY (role_id, permission_id)
+);
+
+CREATE TABLE sys_user_role
+(
+  user_id bigint NOT NULL ,
+  role_id bigint NOT NULL ,
+  PRIMARY KEY (user_id, role_id)
 );
 
 CREATE TABLE  hibernate_sequence_table (

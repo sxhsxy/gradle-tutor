@@ -2,6 +2,7 @@ package hello.integration;
 
 import hello.domain.Permission;
 import hello.domain.Role;
+import hello.domain.User;
 import hello.repository.PermissionRepository;
 import hello.repository.RoleRepository;
 import hello.repository.UserRepository;
@@ -33,8 +34,23 @@ public class AuthorizationTest {
         Role role = roleRepository.save(new Role("Administrator"));
         Set<Permission> permissions = role.getPermissions();
         permissions.add(permission);
-        role.setPermissions(permissions);
         roleRepository.save(role);
+        //给role添加permission
+        Permission p1 = permissionRepository.save(new Permission("user:edit"));
+        Role role1 = roleRepository.findByName("Administrator");
+        if(role1 != null) {
+            Set<Permission> permissions1= role1.getPermissions();
+            permissions1.add(p1);
+            //role1.setPermissions(permissions1);
+
+        }
+        roleRepository.save(role1);
+        //Add a new user with role "Administrator"
+        User user = new User("sxhsxy", "123456", "小虎");
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(roleRepository.findByName("Administrator"));
+        user.setRoles(roles);
+        System.out.println(user);
 
     }
 }

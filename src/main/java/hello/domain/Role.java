@@ -27,7 +27,11 @@ public class Role {
     private Set<User> users = new HashSet<User>();
 
     @ManyToMany
-    @JoinTable
+    @JoinTable(
+            name="sys_role_permission",
+            joinColumns={@JoinColumn(name="role_id")},
+            inverseJoinColumns={@JoinColumn(name="permission_id")}
+    )
     private Set<Permission> permissions = new HashSet<Permission>();
 
     public Role() {
