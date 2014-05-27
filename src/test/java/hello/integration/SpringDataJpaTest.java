@@ -3,6 +3,7 @@ package hello.integration;
 import hello.domain.User;
 import hello.repository.UserRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.sql.SQLException;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
+@Ignore
 public class SpringDataJpaTest {
     @Autowired
     private UserRepository userRepository;
