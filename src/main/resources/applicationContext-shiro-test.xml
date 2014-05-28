@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 定义 Shiro 主要业务对象 -->
+    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
+        <!-- <property name="sessionManager" ref="sessionManager" /> -->
+        <property name="realm" ref="systemAuthorizingRealm" />
+
+    </bean>
+
+    <bean id="systemAuthorizingRealm" class="hello.security.SystemAuthorizingRealm">
+        <property name="credentialsMatcher" ref="passwordMatcher" />
+    </bean>
+
+    <bean id="passwordMatcher" class="org.apache.shiro.authc.credential.PasswordMatcher">
+        <property name="passwordService" ref="passwordService" />
+    </bean>
+
+    <bean id="passwordService" class="org.apache.shiro.authc.credential.DefaultPasswordService">
+        <property name="hashService" ref="hashService" />
+    </bean>
+
+    <bean id="hashService" class="org.apache.shiro.crypto.hash.DefaultHashService">
+        <property name="hashAlgorithmName" value="SHA-512" />
+        <property name="hashIterations" value="1" />
+        <property name="generatePublicSalt" value="true" />
+        <property name="privateSalt" ref="privateSalt" />
+        <property name="randomNumberGenerator" ref="secureRandomNumberGenerator" />
+    </bean>
+
+    <bean id="secureRandomNumberGenerator" class="org.apache.shiro.crypto.SecureRandomNumberGenerator" />
+
+    <bean id="privateSalt" class="org.apache.shiro.util.ByteSource.Util" factory-method="bytes">
+        <constructor-arg value="XXXXSalt" />
+    </bean>
+    <!--
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="3600000" />
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+        <property name="cacheManager" ref="shiroCacheManager" />
+    </bean> -->
+
+
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- AOP式方法级权限检查  -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true" />
+    </bean>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+</beans>

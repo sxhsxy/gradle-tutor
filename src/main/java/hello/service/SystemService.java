@@ -1,8 +1,6 @@
 package hello.service;
 
-import hello.domain.Department;
-import hello.domain.Organization;
-import hello.domain.User;
+import hello.domain.*;
 import hello.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +28,7 @@ public class SystemService {
     @Autowired
     private PermissionRepository permissionRepository;
 
+    //User
 
     public List<User> findAllUser() {
         return userRepository.findAll();
@@ -36,6 +36,10 @@ public class SystemService {
 
     public Page<User> findUser(PageRequest pageRequest, User user) {
         return userRepository.findAll(pageRequest);
+    }
+
+    public User findUserByLoginName(String loginName) {
+        return userRepository.findByLoginName(loginName);
     }
 
     public User findUser(Long id) {
@@ -54,6 +58,10 @@ public class SystemService {
         return userRepository.save(user);
     }
 
+
+
+
+    //Department
     public List<Department> findAllDepartment() {
         return departmentRepository.findAll();
     }
@@ -78,6 +86,8 @@ public class SystemService {
         return departmentRepository.save(department);
     }
 
+    //Organization
+
     public List<Organization> findAllOrganization() {
         return organizationRepository.findAll();
     }
@@ -100,5 +110,28 @@ public class SystemService {
 
     public Organization saveOrganization(Organization organization) {
         return organizationRepository.save(organization);
+    }
+
+    //Role
+
+    public Role findRoleByNameEager(String name) {
+        Role r = roleRepository.findByName(name);
+        r.getPermissions().size();
+        return r;
+    }
+
+    //Permission
+
+    public List<Permission> findPermissionByLoginName(String loginName) {
+        User u = userRepository.findByLoginName(loginName);
+        if (u != null) {
+            ArrayList<Permission> permissions = new ArrayList<Permission>();
+            for (Role r : userRepository.findByLoginName(loginName).getRoles()) {
+                permissions.addAll(r.getPermissions());
+            }
+            return permissions;
+        }
+        else return null;
+
     }
 }
