@@ -1,30 +1,231 @@
-<!DOCTYPE html
-PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <title>My Sample Project</title>
-        <!-- data-main attribute tells require.js to load
-             scripts/main.js after require.js loads. -->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css">
-        <link rel="stylesheet" type="text/css" href="css/ui-dialog.css">
-        
-    </head>
-    <body>
-        <div class="container">
-        <h1>My Sample Project</h1>
-        <div  class="col-md-6">
-        <form >
-            
-                <div id="select1" data-type="treeDialogSelectControl" data-url="http://localhost:8080"></div>
-            
-                
-        </form>
-        <div id="select2" data-type="treeDialogSelectControl" data-url="http://localhost:8080/gradle-tutor/organization/list/json"></div>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="components/jquery-ui-1.11.2/jquery-ui.css">
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="components/jquery-ui-1.11.2/jquery-ui.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 8pt;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #menu {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            border: 1px solid #e3e3e3;
+        }
+
+        #menu ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        #menu ul li a {
+            display: block;
+            width: 80px;
+            text-decoration: none;
+            font-weight: bold;
+            line-height: 50px;
+            color: #606060;
+            background: #fbfbfb;
+            text-align: center;
+        }
+
+        #menu ul li a:hover {
+            color: #ffffff;
+            background: #0088bb;
+        }
+
+        #header {
+            background: #D0E6E7;
+            /*width: 100%;*/
+            height: 40px;
+            padding: 10px 20px 10px;
+        }
+
+        #header h1 {
+            color: #565450;
+            font-size: 12pt;
+            /*line-height: 60px;*/
+        }
+
+        #logo {
+            float: left;
+        }
+
+        #admin {
+            float: right;
+        }
+
+        #admin a {
+            margin: 20px;
+            font-size: 8pt;
+            color: #565450;
+        }
+
+        #main {
+            overflow: hidden;
+            background: #ddddee;
+        }
+
+        #sidebar {
+            float: left;
+            width: 20%;
+        }
+
+        #sidebar h2 {
+            font-size: 8pt;
+        }
+
+        #sidebar ul {
+            padding: 0 20px;
+        }
+
+        #sidebar a {
+
+        }
+
+        #content-wrap {
+            float: right;
+            width: 80%;
+        }
+
+        #tabs a {
+            font-size: 8pt;
+        }
+
+        #footer {
+            padding: 5px;
+            border-top: #888888 solid 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <div id="logo">
+        <h1>jQuery UI标准后台页面演示系统</h1>
+    </div>
+    <div id="admin">
+        <a>用户名</a><a>通知</a><a>设置</a>
+    </div>
+</div>
+<div id="main">
+    <div id="sidebar">
+        <div id="accordion">
+            <h2>机构</h2>
+
+            <ul>
+                <li><a>用户管理</a></li>
+                <li><a>权限管理</a></li>
+                <li><a>角色管理</a></li>
+                <li><a>密码设置</a></li>
+                <li><a>个人信息</a></li>
+            </ul>
+
+            <h2>用户管理</h2>
+            <ul>
+                <li><a>机构列表</a></li>
+                <li><a>用户列表</a></li>
+            </ul>
+            <h2>Section 3</h2>
+
+
+            <ul>
+                <li><a>List item one</a></li>
+                <li><a>List item two</a></li>
+                <li><a>List item thr</a></li>
+            </ul>
+
         </div>
-       </div> 
-        <script data-main="js/main" src="js/require.js"></script>
-    </body>
+    </div>
+
+    <div id="content-wrap">
+        <div id="tabs">
+            <ul>
+                <!--<li><a href="#tab1">首页</a></li>-->
+                <!--<li><a id="tab" href="#tab2">活动页</a><span class="ui-icon ui-icon-close" /></li>-->
+                <!--<li><a href="#tab3">标签3</a><span class="ui-icon ui-icon-close" /></li>-->
+            </ul>
+
+
+            <div id="tab1" class="content">
+                <button id="addbtn">新增</button>
+                <img src="images/penguins.jpg"/>
+
+                <div id="adddialog">Add new dialog</div>
+            </div>
+            <div id="tab2" class="content">
+                TTTTTTTTTTAAAAAAAAAAAABBBBBBBBBBBBBBBB2
+            </div>
+            <div id="tab3" class="content"></div>
+        </div>
+    </div>
+</div>
+<div id="footer"><span>===========页脚============</span></div>
+<div id="menu">
+    <ul>
+        <li><a href="#">1F Item</a></li>
+        <li><a href="#">2F Item</a></li>
+        <li><a href="#">3F Item</a></li>
+        <li><a href="#">4F Item</a></li>
+        <li><a href="#">5F Item</a></li>
+    </ul>
+</div>
+<script>
+    var accordion_left = $("#accordion");
+    accordion_left.accordion({ collapsible: true });
+    $("#tabs").tabs();
+    $("#addbtn").click(function () {
+        $("#adddialog").dialog({
+            title: "Edit",
+            modal: true,
+            buttons: [
+                {text: "OK",
+                    click: function () {
+                        alert("OK!");
+                        $("#adddialog").dialog("close")
+                    }},
+                {text: "cancel", click: function () {
+                    alert("cancel");
+                    $("#adddialog").dialog("close")
+                }}
+            ]})
+    });
+    accordion_left.find("a").click(function () {
+        var module = $(this).html();
+//        $("#tab").html(moduleName);
+//        var panelId = $("#tab").attr("aria-controls");
+//        alert(panelId)
+//        $("#"+panelId).html("xxxxxx");
+//        $("#tabs").tabs( "option", "active", 1 );
+        newTab(module);
+    });
+    newTab("首页");
+    function newTab(moduleName) {
+        var url = "humans.txt";
+        $("<li><a href='" + url + "'>" + moduleName + "</a><span class='ui-icon ui-icon-close' onclick='closeTab($(this).closest(\"li\"))' /></li>")
+                .appendTo("#tabs .ui-tabs-nav");
+        $("#tabs").tabs("refresh").tabs("option", "active", -1);
+
+    }
+    function closeTab(tab) {
+        var panelId = tab.attr("aria-controls");
+        tab.remove();
+        $("#" + panelId).remove();
+        // Refresh the tabs widget
+        $("#tabs").tabs("refresh");
+    }
+</script>
+</body>
 </html>
