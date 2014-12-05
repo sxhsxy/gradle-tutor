@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="components/jquery-ui-1.11.2/jquery-ui.css">
+    <link rel="stylesheet" href="components/DataTables-1.10.4/media/css/jquery.dataTables.min.css">
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="components/jquery-ui-1.11.2/jquery-ui.js"></script>
+    <script src="components/DataTables-1.10.4/media/js/jquery.dataTables.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 8pt;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        #menu {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            border: 1px solid #e3e3e3;
+        }
+
+        #menu ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        #menu ul li a {
+            display: block;
+            width: 80px;
+            text-decoration: none;
+            font-weight: bold;
+            line-height: 50px;
+            color: #606060;
+            background: #fbfbfb;
+            text-align: center;
+        }
+
+        #menu ul li a:hover {
+            color: #ffffff;
+            background: #0088bb;
+        }
+
+        #header {
+            background: #D0E6E7;
+            /*width: 100%;*/
+            height: 40px;
+            padding: 10px 20px 10px;
+        }
+
+        #header h1 {
+            color: #565450;
+            font-size: 12pt;
+            /*line-height: 60px;*/
+        }
+
+        #logo {
+            float: left;
+        }
+
+        #admin {
+            float: right;
+        }
+
+        #admin a {
+            margin: 20px;
+            font-size: 8pt;
+            color: #565450;
+        }
+
+        #main {
+            overflow: hidden;
+            background: #ddddee;
+        }
+
+        #sidebar {
+            float: left;
+            width: 20%;
+        }
+
+        #sidebar h2 {
+            font-size: 8pt;
+        }
+
+        #sidebar ul {
+            padding: 0 20px;
+        }
+
+        #sidebar a {
+
+        }
+
+        #content-wrap {
+            float: right;
+            width: 80%;
+        }
+
+        #tabs a {
+            font-size: 8pt;
+        }
+
+        #footer {
+            padding: 5px;
+            border-top: #888888 solid 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="toolbar">
+    <button id="new">新建</button>
+    <button id="edit">编辑</button>
+    <button id="delete">删除</button>
+</div>
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Office</th>
+        <th>Extn.</th>
+        <th>Start date</th>
+        <th>Salary</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+    <!--<tfoot>-->
+    <!--<tr>-->
+        <!--<th>Name</th>-->
+        <!--<th>Position</th>-->
+        <!--<th>Office</th>-->
+        <!--<th>Extn.</th>-->
+        <!--<th>Start date</th>-->
+        <!--<th>Salary</th>-->
+    <!--</tr>-->
+    <!--</tfoot>-->
+</table>
+
+<div id="dialog-form" title="Create new user">
+    <p class="validateTips">All form fields are required.</p>
+
+    <form>
+        <fieldset>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+<script>
+    $("#example").ready(function() {
+        var table;
+        var dialog;
+        var emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+                name = $( "#name" ),
+                email = $( "#email" ),
+                password = $( "#password" ),
+                allFields = $( [] ).add( name ).add( email ).add( password ),
+                tips = $( ".validateTips" );
+        table = $('#example').DataTable({"ajax": "components/DataTables-1.10.4/examples/ajax/data/arrays.txt"});
+
+        function updateTips( t ) {
+            tips
+                    .text( t )
+                    .addClass( "ui-state-highlight" );
+            setTimeout(function() {
+                tips.removeClass( "ui-state-highlight", 1500 );
+            }, 500 );
+        }
+
+        function checkLength( o, n, min, max ) {
+            if ( o.val().length > max || o.val().length < min ) {
+                o.addClass( "ui-state-error" );
+                updateTips( "Length of " + n + " must be between " +
+                        min + " and " + max + "." );
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkRegexp( o, regexp, n ) {
+            if ( !( regexp.test( o.val() ) ) ) {
+                o.addClass( "ui-state-error" );
+                updateTips( n );
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function addUser() {
+            var valid = true;
+            allFields.removeClass( "ui-state-error" );
+
+            valid = valid && checkLength( name, "username", 3, 16 );
+            valid = valid && checkLength( email, "email", 6, 80 );
+            valid = valid && checkLength( password, "password", 5, 16 );
+
+            valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+            valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
+            valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+
+            if ( valid ) {
+//                $( "#example tbody" ).append( "<tr>" +
+//                        "<td>" + name.val() + "</td>" +
+//                        "<td>" + email.val() + "</td>" +
+//                        "<td>" + password.val() + "</td>" +
+//                        "</tr>" );
+                table.row.add([name.val(), email.val(), password.val(),"未知","未知","未知"])
+                        .draw();
+                dialog.dialog( "close" );
+            }
+            return valid;
+        }
+        dialog = $( "#dialog-form" ).dialog({
+            autoOpen: false,
+            height: 300,
+            width: 350,
+            modal: true,
+            buttons: {
+                "Create an account": addUser,
+                Cancel: function() {
+                    dialog.dialog( "close" );
+                }
+            },
+            close: function() {
+                form[ 0 ].reset();
+                allFields.removeClass( "ui-state-error" );
+            }
+        });
+
+        form = dialog.find( "form" ).on( "submit", function( event ) {
+            event.preventDefault();
+            //addUser();
+        });
+        $('#example tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+
+
+        $('#delete').click( function () {
+            table.row('.selected').remove().draw( false );
+        } );
+        $("#new").click(function(){
+            dialog.dialog("open");
+        });
+
+    });
+</script>
+</body>
+</html>
