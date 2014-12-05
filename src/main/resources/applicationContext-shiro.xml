@@ -6,8 +6,8 @@
     <!-- 安全认证过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/admin/login" />
-        <property name="successUrl" value="/admin/home" />
+        <property name="loginUrl" value="/user/login" />
+        <property name="successUrl" value="/user/home" />
         <property name="unauthorizedUrl" value="/xxx" />
         <property name="filters">
             <map>
@@ -18,8 +18,12 @@
 
         <property name="filterChainDefinitions">
             <value>
-                /admin/** = authc
-                /admin/logout = logout
+                <!--/admin/** = authc-->
+                /user/login = authc
+                /user/edit = authc
+                /user/new = authc
+                /user/home = authc
+                /user/logout = logout
             </value>
         </property>
     </bean>

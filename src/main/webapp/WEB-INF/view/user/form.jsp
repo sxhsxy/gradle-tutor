@@ -24,7 +24,7 @@
 <div class="container">
 <ul class="nav nav-tabs">
     <li><a href="${pageContext.request.contextPath}/user">User List</a></li>
-    <li class="active"><a href="${pageContext.request.contextPath}/user/new">Create User</a></li>
+    <li class="active"><a href="${pageContext.request.contextPath}/user/new">Edit User</a></li>
 </ul>
 <br/>
 <div id='list'>

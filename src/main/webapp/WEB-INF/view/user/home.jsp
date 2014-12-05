@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <title></title>
 </head>
 <body>
-<h1>Home, ${name}!</h1>
+<h1>Home, <shiro:principal />!</h1>
 </body>
 </html>

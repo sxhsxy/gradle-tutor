@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/user")
 public class LoginController {
 
     @RequestMapping(value = "login")
     public String loginPage() {
-        return "admin/login";
+        return "user/login";
     }
 
     @RequestMapping(value = "home")
     public String loadHomePage() {
-        SecurityUtils.getSubject().getPrincipal();
-        return "admin/home";
+//        SecurityUtils.getSubject().getPrincipal();
+        return "user/home";
     }
 
     @RequestMapping(value = "logout")
     public String logoutPage() {
-        return "admin/login";
+        return "user/login";
     }
 }

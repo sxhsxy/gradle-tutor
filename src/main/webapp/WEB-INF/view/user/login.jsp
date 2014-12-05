@@ -20,7 +20,7 @@
 <div class="container">
     <h1>Login</h1>
     <div  class="col-md-6">
-        <form method="post" action="${pageContext.request.contextPath}/admin/login">
+        <form method="post" action="${pageContext.request.contextPath}/user/login">
             <label>用户名</label>
 
             <input type="text" name="loginName" value=""/>

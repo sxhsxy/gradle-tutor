@@ -8,6 +8,13 @@ version = '1.0'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+[jettyRun, jettyRunWar, jettyStop]*.stopPort = 9123
+stopKey = "jjj" //whatever you prefere
+//Stops the jetty Instace when restarting (instance has to be stopped manually otherwise, with jettyStop)
+//[jettyRun, jettyRunWar]*.daemon = true
+[jettyRun, jettyRunWar].each { jetty ->
+    jetty.dependsOn jettyStop
+}
 
 repositories {
     mavenLocal()
@@ -36,6 +43,7 @@ dependencies {
             'org.apache.taglibs:taglibs-standard:1.2.1'
     )
     runtime (
+
             'org.postgresql:postgresql:9.3-1100-jdbc41'
     )
     testCompile (
