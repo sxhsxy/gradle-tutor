@@ -17,7 +17,7 @@
     <link rel='stylesheet' href='' type='text/css'>
     <link href="${pageContext.request.contextPath}/components/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <script src="${pageContext.request.contextPath}/components/bootstrap-3.1.1-dist/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/scripts/vendor/jquery-1.10.2.min.js"></script>
     <script src="${pageContext.request.contextPath}/components/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
 
@@ -64,8 +64,8 @@
             <c:choose>
 
                 <c:when test="${userPage.number != 0}">
-                    <a href="${pageContext.request.contextPath}/user/list?pageNumDisplay=1"><span class="glyphicon glyphicon-step-backward"></span></a>
-                    <a href="${pageContext.request.contextPath}/user/list?pageNumDisplay=${userPage.number}"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                    <a href="javascript:loadPageNumber(1)"><span class="glyphicon glyphicon-step-backward"></span></a>
+                    <a href="javascript:loadPageNumber(${userPage.number})"><span class="glyphicon glyphicon-chevron-left"></span></a>
                 </c:when>
 
                 <c:otherwise>
@@ -75,13 +75,13 @@
 
             </c:choose>
 
-            第<input class="" type="text" size="2" maxlength="7" value="${userPage.number + 1}"/> 页，共 <span id="sp_1_pager">${userPage.totalPages}</span> 页
+            第<input id="pageNumber" type="text" size="2" maxlength="7" value="${userPage.number + 1}"/> 页，共 <span id="sp_1_pager">${userPage.totalPages}</span> 页
 
             <c:choose>
 
                 <c:when test="${userPage.number < userPage.totalPages -1}">
-                    <a href="${pageContext.request.contextPath}/user/list?pageNumDisplay=${userPage.number+2}"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                    <a href="${pageContext.request.contextPath}/user/list?pageNumDisplay=${userPage.totalPages}"><span class="glyphicon glyphicon-step-forward"></span></a>
+                    <a href="javascript:loadPageNumber(${userPage.number+2})"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a href="javascript:loadPageNumber(${userPage.totalPages})"><span class="glyphicon glyphicon-step-forward"></span></a>
                 </c:when>
 
                 <c:otherwise>
@@ -93,8 +93,8 @@
 
         </div>
         <div class="col-sm-offset-2 col-sm-2">
-            每页 <input type="text" size="2" maxlength="7" value="${userPage.size}"/> 条
-            <a><span class="glyphicon glyphicon-refresh"></span></a>
+            每页 <input id="pageSize" type="text" size="2" maxlength="7" value="${userPage.size}"/> 条
+            <a id="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
     </div>
 
@@ -103,6 +103,20 @@
 </div>
 <script>
     <%--$(document).load(insertPagination("pageNoDisplay", 3, ${userPage.size}, ${userPage.number}, ${userPage.totalPages}));--%>
+    $("#pageNumber").keydown(function(e) {
+        if(e.keyCode==13)loadPageDefault();
+    });
+    $("#pageSize").keydown(function(e) {
+        if(e.keyCode==13)loadPageDefault();
+    });
+    $("#refresh").click(loadPageDefault);
+    function loadPageDefault() {
+        var pageNumber = $("#pageNumber").val();
+        loadPageNumber(pageNumber);
+    }
+    function loadPageNumber(pagenumber) {
+        location = location.pathname + "?pageNumDisplay=" + pagenumber + "&pageSize=" + $("#pageSize").val();
+    }
 </script>
 </body>
 </html>
