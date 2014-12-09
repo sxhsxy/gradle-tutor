@@ -43,9 +43,13 @@ public class UserController {
     }
 
     @RequestMapping(value = {"list", ""})
-    public String loadHomePage(@RequestParam(required = false, defaultValue = "1") Integer pageNoDisplay, User user, Model model) {
-        PageRequest pageRequest = new PageRequest(pageNoDisplay-1, 5);
+    public String loadHomePage(@RequestParam(required = false, defaultValue = "1") Integer pageNumDisplay,
+                               @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                               User user, Model model) {
+        PageRequest pageRequest = new PageRequest(pageNumDisplay-1, pageSize);
         Page<User> userPage = systemService.findUser(pageRequest, user);
+        Long userTotal = systemService.countUser();
+        model.addAttribute("userTotal", userTotal);
         model.addAttribute("userPage", userPage);
         return "user/list";
     }

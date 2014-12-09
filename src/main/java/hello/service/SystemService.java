@@ -58,7 +58,9 @@ public class SystemService {
         return userRepository.save(user);
     }
 
-
+    public Long countUser() {
+        return userRepository.count();
+    }
 
 
     //Department
@@ -134,4 +136,6 @@ public class SystemService {
         else return null;
 
     }
+
+
 }

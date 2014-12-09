@@ -22,7 +22,7 @@ import java.sql.SQLException;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
-@Ignore
+
 public class SpringDataJpaTest {
     @Autowired
     private UserRepository userRepository;
@@ -51,62 +51,63 @@ public class SpringDataJpaTest {
         }
     }
 
+    @Test
     public void insertSomeRecords() {
         for(int x=0; x < 100; x++) {
             userRepository.save(new User("user"+x, "psw", "姓名"));
         }
 
     }
-
-    /*public void insertSomeRecordsSql() {
-        Connection con = null;
-        PreparedStatement pst = null;
-        try {
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/xiaohudb";
-            con = DriverManager.getConnection(url, "xiaohu", "123456");
-
-            String sql = "insert into sys_user(login_name, password, name) values (?, ?, ?)";
-            pst = con.prepareStatement(sql);
-            for(int x = 0; x < 100; x++){
-                pst.setString(1, "user"+x);
-                pst.setString(2, "psw");
-                pst.setString(3, "用户"+x);
-                pst.addBatch();
-            }
-            pst.executeBatch();
-
-
-
-            *//*pst.setString(1, "张三");  //也可以用setObject()
-            pst.setString(2, "123");
-            pst.addBatch();
-
-            pst.setString(1, "李四");
-            pst.setString(2, "456");
-            pst.addBatch();
-
-            pst.executeBatch();*//*
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pst != null) {
-                    pst.close();
-                    pst = null;
-                }
-                if (con != null) {
-                    con.close();
-                    con = null;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
+//    @Test
+//    public void insertSomeRecordsSql() {
+//        Connection con = null;
+//        PreparedStatement pst = null;
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//            String url = "jdbc:postgresql://localhost:5432/xiaohudb";
+//            con = DriverManager.getConnection(url, "xiaohu", "123456");
+//
+//            String sql = "insert into sys_user(login_name, password, name) values (?, ?, ?)";
+//            pst = con.prepareStatement(sql);
+//            for(int x = 0; x < 100; x++){
+//                pst.setString(1, "user"+x);
+//                pst.setString(2, "psw");
+//                pst.setString(3, "用户"+x);
+//                pst.addBatch();
+//            }
+//            pst.executeBatch();
+//
+//
+//
+//            pst.setString(1, "张三");  //也可以用setObject()
+//            pst.setString(2, "123");
+//            pst.addBatch();
+//
+//            pst.setString(1, "李四");
+//            pst.setString(2, "456");
+//            pst.addBatch();
+//
+//            pst.executeBatch();
+//
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (pst != null) {
+//                    pst.close();
+//                    pst = null;
+//                }
+//                if (con != null) {
+//                    con.close();
+//                    con = null;
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     public void deleteAllEntities() {
         Connection con = null;

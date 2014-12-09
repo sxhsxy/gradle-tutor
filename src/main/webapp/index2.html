@@ -190,6 +190,9 @@
         $("#adddialog").dialog({
             title: "Edit",
             modal: true,
+            beforeLoad: function( event, ui ) {
+
+            },
             buttons: [
                 {text: "OK",
                     click: function () {
