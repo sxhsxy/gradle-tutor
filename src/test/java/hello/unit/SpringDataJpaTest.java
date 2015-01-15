@@ -1,5 +1,8 @@
 package hello.unit;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import hello.domain.Department;
 import hello.domain.User;
 import hello.repository.UserRepository;
 import org.junit.Before;
@@ -32,7 +35,18 @@ public class SpringDataJpaTest {
         this.insertSomeRecords();
     }
 
-
+    @Test
+    public void testJsonWrite() {
+        User u = new User("jack", "son", "Jack",new Department("wsj"));
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = null;
+        try {
+            jsonString = mapper.writeValueAsString(u);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.print(jsonString);
+    }
 
 
     @Test

@@ -1,5 +1,7 @@
 package hello.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class User {
     private Long id;     //在Persistence Entity中最好使用int，char等原始类型的包装类型，避免在spring mvc中由null值的String向这些原始类型转换失败而造成表单返回对象为null。
     @Column(name = "login_name")
     private String loginName;
+    @JsonIgnore
     private String password;
     private String name;
     @ManyToOne
