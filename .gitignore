@@ -9,3 +9,6 @@ out
 gradle-app.setting
 target/
 *.sublime-workspace
+bower_components
+*bak___
+*old___

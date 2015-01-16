@@ -44,9 +44,12 @@ dependencies {
     )
     runtime (
 
-            'org.postgresql:postgresql:9.3-1100-jdbc41'
+            'org.postgresql:postgresql:9.3-1100-jdbc41',
+            'mysql:mysql-connector-java:5.1.34',
+            'org.sitemesh:sitemesh:3.0.0'
     )
     testCompile (
             "junit:junit:4.11"
     )
+
 }
