@@ -5,7 +5,6 @@ import hello.domain.User;
 import hello.service.SystemService;
 import hello.web.editor.DepartmentEditor;
 import org.apache.shiro.authc.credential.PasswordService;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +47,6 @@ public class UserController {
                                User user, Model model) {
         PageRequest pageRequest = new PageRequest(pageNumDisplay-1, pageSize);
         Page<User> userPage = systemService.findUser(pageRequest, user);
-        Long userTotal = systemService.countUser();
-        model.addAttribute("userTotal", userTotal);
         model.addAttribute("userPage", userPage);
         return "user/list";
     }

@@ -10,20 +10,14 @@
 
 <html>
 <head>
-    <title>Users</title>
-
-    <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
-
-
+    <title>系统用户</title>
 </head>
 <body>
-<div class="container">
-
     <ul class="nav nav-tabs">
         <li class="active"><a href="${pageContext.request.contextPath}/user">User List</a></li>
         <li><a href="${pageContext.request.contextPath}/user/new">Create User</a></li>
     </ul>
-    <div class="row">
+
         <table class="table table-striped table-bordered table-condensed">
             <thead>
             <tr>
@@ -50,9 +44,8 @@
                 </tr>
             </c:forEach>
         </table>
-    </div>
-    <div class="row">
-        <div class="col-sm-offset-0 col-sm-3">${userPage.size*userPage.number + 1}  - ${userPage.number < userPage.totalPages -1 ? userPage.size*(userPage.number + 1) : userTotal}条，共${userTotal}条</div>
+        <tags:pagination page="${userPage}" />
+<%--        <div class="col-sm-offset-0 col-sm-3">${userPage.size*userPage.number + 1}  - ${userPage.number < userPage.totalPages -1 ? userPage.size*(userPage.number + 1) : userPage.totalElements}条，共${userPage.totalElements}条</div>
         <div class="col-sm-offset-1 col-sm-4">
             <c:choose>
 
@@ -88,28 +81,7 @@
         <div class="col-sm-offset-2 col-sm-2">
             每页 <input id="pageSize" type="text" size="2" maxlength="7" value="${userPage.size}"/> 条
             <a id="refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-        </div>
-    </div>
+        </div>--%>
 
-
-
-</div>
-<script>
-    <%--$(document).load(insertPagination("pageNoDisplay", 3, ${userPage.size}, ${userPage.number}, ${userPage.totalPages}));--%>
-    $("#pageNumber").keydown(function(e) {
-        if(e.keyCode==13)loadPageDefault();
-    });
-    $("#pageSize").keydown(function(e) {
-        if(e.keyCode==13)loadPageDefault();
-    });
-    $("#refresh").click(loadPageDefault);
-    function loadPageDefault() {
-        var pageNumber = $("#pageNumber").val();
-        loadPageNumber(pageNumber);
-    }
-    function loadPageNumber(pagenumber) {
-        location = location.pathname + "?pageNumDisplay=" + pagenumber + "&pageSize=" + $("#pageSize").val();
-    }
-</script>
 </body>
 </html>

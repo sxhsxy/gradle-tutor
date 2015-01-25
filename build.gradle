@@ -27,6 +27,8 @@ ext {
 }
 dependencies {
     compile(
+            'org.activiti:activiti-engine:5.17.0',
+            'org.activiti:activiti-spring:5.17.0',
             'org.apache.shiro:shiro-spring:1.2.3',
             'com.fasterxml.jackson.core:jackson-databind:2.3.3',
             'org.springframework.data:spring-data-jpa:1.5.1.RELEASE',
