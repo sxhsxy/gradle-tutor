@@ -15,24 +15,22 @@
 <body>
 
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="${pageContext.request.contextPath}/user">User List</a></li>
-        <li><a href="${pageContext.request.contextPath}/user/new">Create User</a></li>
-    </ul>
 
         <table class="table table-striped table-bordered table-condensed">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Operations</th>
-
+                <th>Id</th>
+                <th>名称</th>
+                <th>分类</th>
+                <th>部署时间</th>
             </tr>
             </thead>
-            <c:forEach items='${userPage.content}' var='user'>
+            <c:forEach items='${deploymentList}' var='deployment'>
                 <tr>
-                    <td>${user.name}</td>
-                    <td>${user.department.name}</td>
+                    <td>${deployment.id}</td>
+                    <td>${deployment.name}</td>
+                    <td>${deployment.category}</td>
+                    <td>${deployment.deploymentTime}</td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-default"
@@ -46,6 +44,6 @@
                 </tr>
             </c:forEach>
         </table>
-        <tags:pagination page="${userPage}" />
+
 </body>
 </html>
