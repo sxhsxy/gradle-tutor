@@ -23,9 +23,11 @@
                 <th>名称</th>
                 <th>分类</th>
                 <th>部署时间</th>
+                <th>操作</th>
+
             </tr>
             </thead>
-            <c:forEach items='${deploymentList}' var='deployment'>
+            <c:forEach items='${deploymentPage.content}' var='deployment'>
                 <tr>
                     <td>${deployment.id}</td>
                     <td>${deployment.name}</td>
@@ -34,16 +36,17 @@
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-default"
-                               href='${pageContext.request.contextPath}/user/view?id=${user.id}'>View</a>
+                               href='${pageContext.request.contextPath}/user/view?id='>View</a>
                             <a class="btn btn-default"
-                               href='${pageContext.request.contextPath}/user/edit?id=${user.id}'>Edit</a>
+                               href='${pageContext.request.contextPath}/user/edit?id='>Edit</a>
                             <a class="btn btn-default"
-                               href='${pageContext.request.contextPath}/user/delete?id=${user.id}'>Delete</a>
+                               href='${pageContext.request.contextPath}/workflow/deployment/delete?id=${deployment.id}'>Delete</a>
                         </div>
                     </td>
                 </tr>
             </c:forEach>
         </table>
+        <tags:pagination page="${deploymentPage}" />
 
 </body>
 </html>
