@@ -18,6 +18,7 @@ stopKey = "jjj" //whatever you prefere
 
 repositories {
     mavenLocal()
+    maven { url "http://maven.oschina.net/content/groups/public/"}
     maven { url "http://repo.spring.io/libs-snapshot" }
     mavenCentral()
 }
