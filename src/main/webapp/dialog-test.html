@@ -1,30 +1,115 @@
 <!DOCTYPE html
-PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <title>My Sample Project</title>
-        <!-- data-main attribute tells require.js to load
-             scripts/main.js after require.js loads. -->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css">
-        <link rel="stylesheet" type="text/css" href="css/ui-dialog.css">
-        
-    </head>
-    <body>
-        <div class="container">
-        <h1>My Sample Project</h1>
-        <div  class="col-md-6">
-        <form >
-            
-                <div id="select1" data-type="treeDialogSelectControl" data-url="http://localhost:8080"></div>
-            
-                
-        </form>
-        <div id="select2" data-type="treeDialogSelectControl" data-url="http://localhost:8080/gradle-tutor/organization/list/json"></div>
-        </div>
-       </div> 
-        <script data-main="js/main" src="js/require.js"></script>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>My Sample Project</title>
+    <!-- data-main attribute tells require.js to load
+         scripts/main.js after require.js loads. -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.min.css">
+    <link href="css/ui.jqgrid.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-2.1.0.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="container">
+    <h1>My Sample Project</h1>
+
+        <table id="list">
+            <tr>
+                <th> header 1 </th>
+                <th> header 2 </th>
+
+            </tr>
+            <tbody>
+            <tr>
+                <td> data 1 </td>
+                <td> data 1 </td>
+
+            </tr>
+            <tr>
+                <td> data 2 </td>
+                <td> data 2 </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="pager"></div>
+
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        tableToGrid("#list", {pager: jQuery('#pager')});
+
+
+
+        jQuery("#listx").jqGrid({
+
+            url: 'Handler.ashx',
+
+            datatype: "json",
+
+            mtype: 'GET',
+
+            colNames: ['SalesReasonID', 'Name', 'ReasonType', 'ModifiedDate'],
+
+            colModel: [
+
+                {name: 'SalesReasonID', index: 'SalesReasonID', width: 40, align: "left", editable: true},
+
+                {name: 'Name', index: 'Name', width: 100, align: "center"},
+
+                {name: 'ReasonType', index: 'ReasonType', width: 100, align: "center"},
+
+                {name: 'ModifiedDate', index: 'ModifiedDate', width: 150, align: "center", search: false}
+
+            ],
+
+            rowList: [10, 20, 30],
+
+            sortname: 'SalesReasonID',
+
+            viewrecords: true,
+
+            sortorder: "desc",
+
+            jsonReader: {
+
+                root: "griddata",
+
+                total: "totalpages",
+
+                page: "currpage",
+
+                records: "totalrecords",
+
+                repeatitems: false
+
+            },
+
+            pager: jQuery('#pager'),
+
+            rowNum: 5,
+
+            altclass: 'altRowsColour',
+
+//width: 'auto',
+
+            width: '500',
+
+            height: 'auto',
+
+            caption: "DemoGrid"
+
+        }).navGrid('#pager', {add: true, edit: true, del: true, search: false, refresh: false});
+    ;
+
+    })
+            </script>
     </body>
-</html>
+    </html>
