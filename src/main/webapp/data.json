@@ -1,0 +1,28 @@
+{"page": "1",
+"total": "1",
+"records": "3",
+"rows":[
+{
+"id": 1566535,
+"name": "老干妈油辣椒",
+"unit": "瓶",
+"serial_number": null,
+"type_number": null
+},
+{
+"id": 185583,
+"name": "海天酱油",
+"unit": "瓶",
+"serial_number": null,
+"type_number": null
+}
+,
+{
+"id": 86846468,
+"name": "老四川牛肉干",
+"unit": "包",
+"serial_number": null,
+"type_number": ""
+}
+]
+}

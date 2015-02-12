@@ -70,3 +70,10 @@ CREATE TABLE sys_user
   FOREIGN KEY ( department_id ) REFERENCES department ( id )
 );
 
+CREATE TABLE commodity
+(
+  id BIGINT PRIMARY KEY NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  type_number VARCHAR(128),
+  unit VARCHAR(64)
+);
