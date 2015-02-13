@@ -10,7 +10,6 @@ public class Commodity {
     private Long id;
     private String name;
     private String unit;
-    private String serialNumber;
     private String typeNumber;
 
     @Id
@@ -51,16 +50,6 @@ public class Commodity {
     }
 
     @Basic
-    @Column(name = "serial_number")
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    @Basic
     @Column(name = "type_number")
     public String getTypeNumber() {
         return typeNumber;
@@ -79,8 +68,7 @@ public class Commodity {
 
         if (id != null ? !id.equals(commodity.id) : commodity.id != null) return false;
         if (name != null ? !name.equals(commodity.name) : commodity.name != null) return false;
-        if (serialNumber != null ? !serialNumber.equals(commodity.serialNumber) : commodity.serialNumber != null)
-            return false;
+
         if (typeNumber != null ? !typeNumber.equals(commodity.typeNumber) : commodity.typeNumber != null) return false;
         if (unit != null ? !unit.equals(commodity.unit) : commodity.unit != null) return false;
 
@@ -92,7 +80,6 @@ public class Commodity {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (unit != null ? unit.hashCode() : 0);
-        result = 31 * result + (serialNumber != null ? serialNumber.hashCode() : 0);
         result = 31 * result + (typeNumber != null ? typeNumber.hashCode() : 0);
         return result;
     }
