@@ -15,12 +15,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.mail.internet.ContentType;
+
 /**
  * Created by xiaohu on 2015/2/14.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration(value = "src/main/webapp/WEB-INF/springmvc-servlet.xml")
-@ContextConfiguration()
+@WebAppConfiguration(value = "file:src/main/webapp")
+@ContextConfiguration(locations = {"classpath:applicationContext.xml",
+                                    "classpath:applicationContext-shiro.xml",
+                                    "file:src/main/webapp/WEB-INF/springmvc-servlet.xml"})
 public class MockMvcTest {
     @Autowired
     private WebApplicationContext wac;
@@ -41,8 +45,9 @@ public class MockMvcTest {
 
 
         ResultActions actions = this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/data.json").param("name", "DDDDDDD").accept(
-                        MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
+                MockMvcRequestBuilders.get("/commodity").param("name", "DDDDDDD").accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
 
 
         System.out.println("测试成功");

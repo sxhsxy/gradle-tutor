@@ -4,6 +4,7 @@ import hello.domain.Commodity;
 import hello.repository.CommodityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class CommodityController {
     CommodityRepository commodityRepository;
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Page<Commodity> listCommodity(Pageable pageRequest) {
+    public Page<Commodity> listCommodity(Pageable pageRequest = new PageRequest()) {
         return commodityRepository.findAll(pageRequest);
     }
 }

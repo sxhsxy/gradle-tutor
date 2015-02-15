@@ -4,6 +4,7 @@ build
 *.iml
 *.ipr
 *.iws
+*.log
 out
 *.ids
 gradle-app.setting
