@@ -11,10 +11,11 @@ version = '1.0'
 [jettyRun, jettyRunWar, jettyStop]*.stopPort = 9123
 stopKey = "jjj" //whatever you prefere
 //Stops the jetty Instace when restarting (instance has to be stopped manually otherwise, with jettyStop)
-[jettyRun, jettyRunWar]*.httpPort = 8888
+[jettyRun, jettyRunWar]*.httpPort = 8080
 [jettyRun, jettyRunWar].each { jetty ->
     jetty.dependsOn jettyStop
 }
+jettyRun.contextPath = '/'
 
 repositories {
     mavenLocal()
