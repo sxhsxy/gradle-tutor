@@ -21,7 +21,7 @@ public class CommodityController {
     CommodityRepository commodityRepository;
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Page<Commodity> listCommodity(Pageable pageRequest = new PageRequest()) {
-        return commodityRepository.findAll(pageRequest);
+    public Page<Commodity> listCommodity() {
+        return commodityRepository.findAll(new PageRequest(0,2));
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -44,13 +45,13 @@ public class MockMvcTest {
         System.out.println("返回json。。。。。。。。。。。");
 
 
-        ResultActions actions = this.mockMvc.perform(
+        MvcResult result = this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/commodity").param("name", "DDDDDDD").accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
-
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
 
         System.out.println("测试成功");
-
+        System.out.println(result.getResponse().getContentAsString());
     }
 }
