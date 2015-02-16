@@ -15,7 +15,13 @@ stopKey = "jjj" //whatever you prefere
 [jettyRun, jettyRunWar].each { jetty ->
     jetty.dependsOn jettyStop
 }
-jettyRun.contextPath = '/'
+jettyRun {
+    //reload = "automatic"
+    //scanIntervalSeconds = 1
+    contextPath = '/'
+    //webDefaultXml = file("src/test/resources/jetty-webdefault.xml")
+}
+
 
 repositories {
     mavenLocal()

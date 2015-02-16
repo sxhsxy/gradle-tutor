@@ -50,20 +50,51 @@
                     rowNum: 10,
                     //rowList: [10, 20, 30],
                     pager: '#pager',
-                    caption: "商品列表"
+                    caption: "===商品列表===",
+                    editurl: 'commdity'
                 });
-        jQuery("#list").jqGrid('navGrid', '#pager', {edit: false, add: false, del: false});
+        //jQuery("#list").jqGrid('navGrid', '#pager', {edit: true, add: true, del: true});
 
-        $("#edit").click(function() {
-            var gr = jQuery("#list").jqGrid('getGridParam', 'selrow');
-            if (gr != null)
-                jQuery("#list").jqGrid('editGridRow', gr, {
-                    height : 300,
-                    reloadAfterSubmit : false
-                });
-            else
-                alert("Please Select Row");
-        });
+//        $("#edit").click(function() {
+//            var gr = jQuery("#list").jqGrid('getGridParam', 'selrow');
+//            if (gr != null)
+//                jQuery("#list").jqGrid('editGridRow', gr, {
+//                    height : 300,
+//                    reloadAfterSubmit : false
+//                });
+//            else
+//                alert("Please Select Row");
+//        });
+        var editOptions = {
+            onclickSubmit: function(params, postdata) {
+                params.url = URL + '/' + postdata.id;
+            }
+        };
+        var addOptions = {mtype: "POST"};
+        var delOptions = {
+            onclickSubmit: function(params, postdata) {
+                params.url = URL + '/' + postdata;
+            }
+        };
+
+        var URL = 'commdity';
+        var options = {
+
+            height: 'auto',
+            ondblClickRow: function(id) {
+                jQuery(this).jqGrid('editGridRow', id, editOptions);
+            }
+        };
+
+        $("#list")
+                .jqGrid(options)
+                .navGrid('#pager',
+                {edit: true, add: true, del: true}, //options
+                editOptions,
+                addOptions,
+                delOptions,
+                {} // search options
+        );
     }
 
 </script>
