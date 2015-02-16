@@ -14,7 +14,7 @@
     <script src="js/vendor/jquery/2.1.1/jquery.js" type="text/javascript"></script>
     <script src="components/jquery-ui-1.11.2/jquery-ui.js" type="text/javascript"></script>
     <script src="components/jqGrid-4.7.0/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-    <script src="components/jqGrid-4.7.0/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+    <script src="components/jqGrid-4.7.0/js/jquery.jqGrid.js" type="text/javascript"></script>
     <script src="js/jqGrid-config.js" type="text/javascript"></script>
 </head>
 <body>
@@ -44,14 +44,14 @@
                     colModel: [
                         {name: 'id', width: 80},
                         {name: 'name', width: 300,editable:true},
-                        {name: 'type_number', width: 100,editable:true},
+                        {name: 'typeNumber', width: 100,editable:true},
                         {name: 'unit', width: 120, align: "right",editable:true}
                     ],
                     rowNum: 10,
                     //rowList: [10, 20, 30],
                     pager: '#pager',
                     caption: "===商品列表===",
-                    editurl: 'commdity'
+                    editurl: 'commodity'
                 });
         //jQuery("#list").jqGrid('navGrid', '#pager', {edit: true, add: true, del: true});
 
@@ -65,19 +65,30 @@
 //            else
 //                alert("Please Select Row");
 //        });
+        var URL = 'commodity';
         var editOptions = {
             onclickSubmit: function(params, postdata) {
-                params.url = URL + '/' + postdata.id;
+                params.url = URL + '/' + postdata.list_id;
             }
         };
-        var addOptions = {mtype: "POST"};
+        var addOptions = {
+            mtype: "POST",
+            onclickSubmit: function(params, postdata) {
+                console.log(postdata);
+                postdata.id = "";
+                console.log(postdata);
+                //var pd = $("#pdata").jqGrid('getGridParam','postData');
+                //pd.param1 = null;
+                //$("#pdata").jqGrid('setGridParam','postData',pd);
+            }
+        };
         var delOptions = {
             onclickSubmit: function(params, postdata) {
                 params.url = URL + '/' + postdata;
             }
         };
 
-        var URL = 'commdity';
+
         var options = {
 
             height: 'auto',
