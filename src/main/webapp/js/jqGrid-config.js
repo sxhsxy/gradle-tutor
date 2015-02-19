@@ -27,6 +27,7 @@ $(function() {
         loadError: function(xhr, status, error) {
             alert(error);
         }
+
     });
 
     $.extend($.jgrid.edit, {
@@ -46,8 +47,49 @@ $(function() {
         }
     });
 
+    $.jgrid.extend({
+        initNavGrid: function() {
+            this.each( function() {
+                    var xurl = this.p.url;
+                    var editOptions = {
+                        onclickSubmit: function (params, postdata) {
+                            params.url = xurl + '/' + postdata.list_id;
+                        }
+                    };
+                    var addOptions = {
+                        mtype: "POST",
+                        onclickSubmit: function (params, postdata) {
+                            postdata.id = "";
+                            //var pd = $("#pdata").jqGrid('getGridParam','postData');
+                            //pd.param1 = null;
+                            //$("#pdata").jqGrid('setGridParam','postData',pd);
+                        }
+                    };
+                    var delOptions = {
+                        onclickSubmit: function (params, postdata) {
+                            params.url = xurl + '/' + postdata;
+                        }
+                    };
 
+                    var options = {
+                        height: 'auto',
+                        ondblClickRow: function (rowid) {
+                            jQuery(this).jqGrid('editGridRow', rowid, editOptions);
+                        }
+                    };
 
+                    $(this).jqGrid("setGridParam", options)
+                        .jqGrid("navGrid", '#pager',
+                        {edit: true, add: true, del: true, search: false}, //options
+                        editOptions,
+                        addOptions,
+                        delOptions,
+                        {} // search options
+                    );
+                }
+            );
+        }
+    });
 
 
 
