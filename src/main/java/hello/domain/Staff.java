@@ -4,15 +4,14 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by Xiaohu on 2015/2/11.
+ * Created by xiaohu on 2015/2/26.
  */
 @Entity
-@Table(name = "wms_commodity", schema = "", catalog = "xiaohudb")
-public class Commodity {
+@Table(name = "wms_staff", schema = "", catalog = "xiaohudb")
+public class Staff {
     private Long id;
     private String name;
-    private String unit;
-    private String typeNumber;
+    private String phone;
     private Collection<Purchase> Purchases;
     private Collection<Sale> Sales;
 
@@ -22,7 +21,7 @@ public class Commodity {
     @TableGenerator(name = "hibernate_table_generator",
             table = "hibernate_sequence_table",
             pkColumnName = "sequence_name",
-            pkColumnValue = "wms_commodity",
+            pkColumnValue = "wms_staff",
             valueColumnName = "next_val"
     )
     public Long getId() {
@@ -44,23 +43,13 @@ public class Commodity {
     }
 
     @Basic
-    @Column(name = "unit")
-    public String getUnit() {
-        return unit;
+    @Column(name = "phone")
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    @Basic
-    @Column(name = "type_number")
-    public String getTypeNumber() {
-        return typeNumber;
-    }
-
-    public void setTypeNumber(String typeNumber) {
-        this.typeNumber = typeNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
@@ -68,13 +57,11 @@ public class Commodity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Commodity commodity = (Commodity) o;
+        Staff staff = (Staff) o;
 
-        if (id != null ? !id.equals(commodity.id) : commodity.id != null) return false;
-        if (name != null ? !name.equals(commodity.name) : commodity.name != null) return false;
-
-        if (typeNumber != null ? !typeNumber.equals(commodity.typeNumber) : commodity.typeNumber != null) return false;
-        if (unit != null ? !unit.equals(commodity.unit) : commodity.unit != null) return false;
+        if (id != null ? !id.equals(staff.id) : staff.id != null) return false;
+        if (name != null ? !name.equals(staff.name) : staff.name != null) return false;
+        if (phone != null ? !phone.equals(staff.phone) : staff.phone != null) return false;
 
         return true;
     }
@@ -83,13 +70,12 @@ public class Commodity {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (unit != null ? unit.hashCode() : 0);
-        result = 31 * result + (typeNumber != null ? typeNumber.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
     }
 
 
-    @OneToMany(mappedBy = "commodity")
+    @OneToMany(mappedBy = "staff")
     public Collection<Purchase> getPurchases() {
         return Purchases;
     }
@@ -98,7 +84,7 @@ public class Commodity {
         Purchases = purchases;
     }
 
-    @OneToMany(mappedBy = "commodity")
+    @OneToMany(mappedBy = "staff")
     public Collection<Sale> getSales() {
         return Sales;
     }

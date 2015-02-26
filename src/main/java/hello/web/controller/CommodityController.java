@@ -54,7 +54,8 @@ public class CommodityController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> createCommodity(HttpServletRequest request, @RequestBody Commodity commodity) {
-        final Long id = save(commodity);
+        commodityRepository.saveAndFlush(commodity);
+        final Long id = commodity.getId();
 
         URI uri = new UriTemplate("{requestUrl}/{id}").expand(request.getRequestURL().toString(), id);
         final HttpHeaders headers = new HttpHeaders();
@@ -62,10 +63,6 @@ public class CommodityController {
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
-    private Long save(Commodity commodity) {
-        commodityRepository.saveAndFlush(commodity);
-        return commodity.getId();
-    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
