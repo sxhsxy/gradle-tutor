@@ -1,5 +1,7 @@
 package hello.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -57,6 +59,7 @@ public class Sale {
 
     @Basic
     @Column(name = "create_time")
+    //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd,HH:mm:ss", timezone="GMT+8")
     public Timestamp getCreateTime() {
         return createTime;
     }

@@ -1,10 +1,11 @@
-package hello.web.controller;
+package hello.web.controller;/**
+ * Created by Xiaohu on 2015/2/27.
+ */
 
-import hello.domain.Commodity;
-import hello.repository.CommodityRepository;
+import hello.domain.Supplier;
+import hello.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,39 +23,38 @@ import static java.util.Collections.singletonList;
  * Created by xiaohu on 2015/2/13.
  */
 @Controller
-@RequestMapping("/commodity")
-public class CommodityController {
+@RequestMapping("/supplier")
+public class SupplierController {
     @Autowired
-    CommodityRepository commodityRepository;
+    SupplierRepository supplierRepository;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Page<Commodity> listCommodity(Pageable page) {
-        return commodityRepository.findAll(page);
+    public Page<Supplier> listSupplier(Pageable page) {
+        return supplierRepository.findAll(page);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    Commodity read(@PathVariable("id") Long id) {
-        return commodityRepository.findOne(id);
+    Supplier read(@PathVariable("id") Long id) {
+        return supplierRepository.findOne(id);
     }
-
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCommodity(@PathVariable("id") Long id, @RequestBody Commodity commodity) {
-        if (commodityRepository.exists(id)) {
-            commodity.setId(id);
-            commodityRepository.save(commodity);
+    public void updateSupplier(@PathVariable("id") Long id, @RequestBody Supplier supplier) {
+        if (supplierRepository.exists(id)) {
+            supplier.setId(id);
+            supplierRepository.save(supplier);
         }
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> createCommodity(HttpServletRequest request, @RequestBody Commodity commodity) {
-        commodityRepository.saveAndFlush(commodity);
-        final Long id = commodity.getId();
+    public ResponseEntity<String> createSupplier(HttpServletRequest request, @RequestBody Supplier supplier) {
+        supplierRepository.saveAndFlush(supplier);
+        final Long id = supplier.getId();
 
         URI uri = new UriTemplate("{requestUrl}/{id}").expand(request.getRequestURL().toString(), id);
         final HttpHeaders headers = new HttpHeaders();
@@ -65,7 +65,7 @@ public class CommodityController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCommodity(@PathVariable("id") Long id) {
-        commodityRepository.delete(id);
+    public void deleteSupplier(@PathVariable("id") Long id) {
+        supplierRepository.delete(id);
     }
 }

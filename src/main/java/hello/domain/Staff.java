@@ -1,5 +1,7 @@
 package hello.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -74,7 +76,7 @@ public class Staff {
         return result;
     }
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "staff")
     public Collection<Purchase> getPurchases() {
         return Purchases;
@@ -84,6 +86,7 @@ public class Staff {
         Purchases = purchases;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "staff")
     public Collection<Sale> getSales() {
         return Sales;
