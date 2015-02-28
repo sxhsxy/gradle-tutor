@@ -40,7 +40,7 @@ public class SaleController {
     }
 
 
-
+//TODO: nested json object deserialization.
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateSale(@PathVariable("id") Long id, @RequestBody Sale sale) {

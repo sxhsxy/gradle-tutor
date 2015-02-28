@@ -32,6 +32,38 @@
         pageInit();
     });
     function pageInit() {
+
+        function foreignKeyFormatter(cellvalue, options, rowObject) {
+            // insert div needed for the raty plugin
+            // and insert a hidden span with the rating value
+            return '<div>'+cellvalue.name+ '</div><span style="display: none;">'+cellvalue.id+'</span>';
+        }
+        function foreignKeyUnformatter (cellvalue, options, cellobject) {
+            // get rating value from the hidden span
+            return cellobject.find("span").text();
+        }
+        function foreignKeyElement(value, options) {
+            var elem = $('<select id="'+options.id+'"/>');
+            function initForeignKeySelect(list) {
+                $.each(list,function(index,val){
+                    elem.append('<option value='+val.id+' >'+val.name+'</option>');
+                });
+                elem.val(value);
+            }
+            $.ajax({
+                'url':'reference/'+ options.id,
+                'type':'get',
+                'dataType':'json',
+                success: initForeignKeySelect
+            });
+            return elem;
+        }
+        function foreignKeyValue(elem) {
+            var obj = new Object();
+            obj.id = elem.val();
+            obj.name = elem.find("option:selected").text();
+            return obj;
+        }
         jQuery("#list")
                 .jqGrid(
                 {
@@ -40,10 +72,22 @@
                     colNames: ['销售单Id', '商品', '数量', '客户名', '销售员', '销售日期', '创建时间'],
                     colModel: [
                         {name: 'id', width: 100},
-                        {name: 'commodity', width: 300,editable:true},
+                        {name: 'commodity', width: 300,editable:true,
+                            formatter:foreignKeyFormatter,unformat:foreignKeyUnformatter,
+                            edittype:'custom',
+                            editoptions: {custom_element: foreignKeyElement,
+                                            custom_value: foreignKeyValue}},
                         {name: 'quantity', width: 100,editable:true},
-                        {name: 'customer', width:100, editable:true},
-                        {name: 'staff', width: 120, editable:true},
+                        {name: 'customer', width:100, editable:true,
+                            formatter:foreignKeyFormatter,unformat:foreignKeyUnformatter,
+                            edittype:'custom',
+                            editoptions: {custom_element: foreignKeyElement,
+                                custom_value: foreignKeyValue}},
+                        {name: 'staff', width: 120, editable:true,
+                            formatter:foreignKeyFormatter,unformat:foreignKeyUnformatter,
+                            edittype:'custom',
+                            editoptions: {custom_element: foreignKeyElement,
+                                custom_value: foreignKeyValue}},
                         {name: 'saleDate', width:150, editable:true},
                         {name: 'createTime', width:200, editable:false}
                     ],
