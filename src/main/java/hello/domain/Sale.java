@@ -3,7 +3,6 @@ package hello.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -14,7 +13,7 @@ import java.sql.Timestamp;
 public class Sale {
     private Long id;
     private Integer quantity;
-    private Date saleDate;
+    private Timestamp saleTime;
     private Timestamp createTime;
     private hello.domain.Commodity commodity;
     private hello.domain.Customer customer;
@@ -48,18 +47,18 @@ public class Sale {
     }
 
     @Basic
-    @Column(name = "sale_date")
-    public Date getSaleDate() {
-        return saleDate;
+    @Column(name = "sale_time")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+8")
+    public Timestamp getSaleTime() {
+        return saleTime;
     }
 
-    public void setSaleDate(Date saleDate) {
-        this.saleDate = saleDate;
+    public void setSaleTime(Timestamp saleTime) {
+        this.saleTime = saleTime;
     }
 
     @Basic
     @Column(name = "create_time")
-    //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd,HH:mm:ss", timezone="GMT+8")
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -78,7 +77,7 @@ public class Sale {
         if (createTime != null ? !createTime.equals(sale.createTime) : sale.createTime != null) return false;
         if (id != null ? !id.equals(sale.id) : sale.id != null) return false;
         if (quantity != null ? !quantity.equals(sale.quantity) : sale.quantity != null) return false;
-        if (saleDate != null ? !saleDate.equals(sale.saleDate) : sale.saleDate != null) return false;
+        if (saleTime != null ? !saleTime.equals(sale.saleTime) : sale.saleTime != null) return false;
 
         return true;
     }
@@ -87,7 +86,7 @@ public class Sale {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
-        result = 31 * result + (saleDate != null ? saleDate.hashCode() : 0);
+        result = 31 * result + (saleTime != null ? saleTime.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }

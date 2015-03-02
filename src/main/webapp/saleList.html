@@ -69,7 +69,7 @@
                 {
                     url: 'sale',
                     datatype: "json",
-                    colNames: ['销售单Id', '商品', '数量', '客户名', '销售员', '销售日期', '创建时间'],
+                    colNames: ['销售单Id', '商品', '数量', '客户名', '销售员', '销售时间', '创建时间'],
                     colModel: [
                         {name: 'id', width: 100},
                         {name: 'commodity', width: 300,editable:true,
@@ -88,7 +88,7 @@
                             edittype:'custom',
                             editoptions: {custom_element: foreignKeyElement,
                                 custom_value: foreignKeyValue}},
-                        {name: 'saleDate', width:150, editable:true},
+                        {name: 'saleTime', width:150, editable:true},
                         {name: 'createTime', width:200, editable:false}
                     ],
                     rowNum: 10,

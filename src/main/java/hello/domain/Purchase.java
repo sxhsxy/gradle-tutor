@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public class Purchase {
     private Long id;
     private Integer quantity;
-    private Date purchaseDate;
+    private Timestamp purchaseTime;
     private Timestamp createTime;
     private hello.domain.Commodity commodity;
     private hello.domain.Staff staff;
@@ -46,13 +46,13 @@ public class Purchase {
     }
 
     @Basic
-    @Column(name = "purchase_date")
-    public Date getPurchaseDate() {
-        return purchaseDate;
+    @Column(name = "purchase_time")
+    public Timestamp getPurchaseTime() {
+        return purchaseTime;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
+    public void setPurchaseTime(Timestamp purchaseTime) {
+        this.purchaseTime = purchaseTime;
     }
 
     @Basic
@@ -74,7 +74,7 @@ public class Purchase {
 
         if (createTime != null ? !createTime.equals(purchase.createTime) : purchase.createTime != null) return false;
         if (id != null ? !id.equals(purchase.id) : purchase.id != null) return false;
-        if (purchaseDate != null ? !purchaseDate.equals(purchase.purchaseDate) : purchase.purchaseDate != null)
+        if (purchaseTime != null ? !purchaseTime.equals(purchase.purchaseTime) : purchase.purchaseTime != null)
             return false;
         if (quantity != null ? !quantity.equals(purchase.quantity) : purchase.quantity != null) return false;
 
@@ -85,7 +85,7 @@ public class Purchase {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
-        result = 31 * result + (purchaseDate != null ? purchaseDate.hashCode() : 0);
+        result = 31 * result + (purchaseTime != null ? purchaseTime.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }

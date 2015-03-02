@@ -14,6 +14,7 @@ import org.springframework.web.util.UriTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
+import java.sql.Timestamp;
 
 import static java.util.Collections.singletonList;
 
@@ -46,12 +47,14 @@ public class SaleController {
     public void updateSale(@PathVariable("id") Long id, @RequestBody Sale sale) {
         if (saleRepository.exists(id)) {
             sale.setId(id);
+            sale.setCreateTime(new Timestamp(System.currentTimeMillis()));
             saleRepository.save(sale);
         }
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> createSale(HttpServletRequest request, @RequestBody Sale sale) {
+        sale.setCreateTime(new Timestamp(System.currentTimeMillis()));
         saleRepository.saveAndFlush(sale);
         final Long id = sale.getId();
 
