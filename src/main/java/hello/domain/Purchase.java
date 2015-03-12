@@ -1,5 +1,8 @@
 package hello.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -8,15 +11,16 @@ import java.sql.Timestamp;
  * Created by xiaohu on 2015/2/26.
  */
 @Entity
-@Table(name = "wms_purchase")
+@Table(name = "wms_purchase", schema = "", catalog = "xiaohudb")
 public class Purchase {
     private Long id;
     private Integer quantity;
     private Timestamp purchaseTime;
     private Timestamp createTime;
-    private hello.domain.Commodity commodity;
-    private hello.domain.Staff staff;
-    private hello.domain.Supplier supplier;
+    private Commodity commodity;
+    private Staff staff;
+    private Supplier supplier;
+    private hello.domain.Payment payment;
 
     @Id
     @Column(name = "id")
@@ -45,6 +49,7 @@ public class Purchase {
         this.quantity = quantity;
     }
 
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT+8")
     @Basic
     @Column(name = "purchase_time")
     public Timestamp getPurchaseTime() {
@@ -90,7 +95,6 @@ public class Purchase {
         return result;
     }
 
-
     @ManyToOne
     @JoinColumn(name = "commodity_id", referencedColumnName = "id", nullable = false)
     public Commodity getCommodity() {
@@ -119,5 +123,15 @@ public class Purchase {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "purchase")
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }

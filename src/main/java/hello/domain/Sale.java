@@ -1,6 +1,7 @@
 package hello.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,15 +10,16 @@ import java.sql.Timestamp;
  * Created by xiaohu on 2015/2/26.
  */
 @Entity
-@Table(name = "wms_sale")
+@Table(name = "wms_sale", schema = "", catalog = "xiaohudb")
 public class Sale {
     private Long id;
     private Integer quantity;
     private Timestamp saleTime;
     private Timestamp createTime;
-    private hello.domain.Commodity commodity;
-    private hello.domain.Customer customer;
-    private hello.domain.Staff staff;
+    private Commodity commodity;
+    private Customer customer;
+    private Staff staff;
+    private Receipt receipt;
 
     @Id
     @Column(name = "id")
@@ -91,7 +93,6 @@ public class Sale {
         return result;
     }
 
-
     @ManyToOne
     @JoinColumn(name = "commodity_id", referencedColumnName = "id", nullable = false)
     public Commodity getCommodity() {
@@ -120,5 +121,15 @@ public class Sale {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "sale")
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
     }
 }
